@@ -1,6 +1,7 @@
 """OpenSearch client manager with connection pooling and health checks."""
 
 import asyncio
+import inspect
 import time
 from typing import Any, AsyncIterator, Optional, Union
 
@@ -53,6 +54,7 @@ class OpenSearchManager:
         self._client: Optional[Any] = None  # Can be AsyncOpenSearch or None
         self._sync_client: Optional[OpenSearch] = None
         self._use_async = HAS_ASYNC and AsyncOpenSearch is not None
+        self._async_verified = False  # Track if async methods actually work
         self._metrics: dict[str, Any] = {
             "total_queries": 0,
             "successful_queries": 0,
@@ -97,6 +99,73 @@ class OpenSearchManager:
             config["ca_certs"] = self.config.ca_certs
 
         return config
+
+    def _verify_async_method(self, client: Any, method_name: str) -> bool:
+        """Verify that an async client method actually returns a coroutine.
+        
+        Args:
+            client: The client instance to test
+            method_name: Name of the method to verify
+            
+        Returns:
+            True if the method returns a coroutine, False otherwise
+        """
+        if not hasattr(client, method_name):
+            return False
+            
+        method = getattr(client, method_name)
+        
+        # Check if it's a coroutine function
+        if not inspect.iscoroutinefunction(method):
+            return False
+            
+        # Try to call it with minimal args to see what it returns
+        # Note: This is a dry-run check, actual execution may fail
+        try:
+            # For search method, try with minimal parameters
+            if method_name == "search":
+                # Create a mock call signature to check
+                # We can't actually call it without a connection, but we can check the function
+                pass
+        except Exception:
+            pass
+            
+        return True
+
+    def _safe_async_call(self, client: Any, method_name: str, *args, **kwargs) -> Any:
+        """Safely call an async method, handling cases where it doesn't return a coroutine.
+        
+        Args:
+            client: The client instance
+            method_name: Name of the method to call
+            *args: Positional arguments for the method
+            **kwargs: Keyword arguments for the method
+            
+        Returns:
+            The result of the method call (coroutine or result)
+            
+        Raises:
+            TypeError: If the method returns a tuple when a coroutine is expected
+        """
+        method = getattr(client, method_name)
+        result = method(*args, **kwargs)
+        
+        # Check if result is a coroutine
+        if asyncio.iscoroutine(result):
+            return result
+        
+        # If it's not a coroutine but we expected one, log and raise
+        error_msg = (
+            f"AsyncOpenSearch.{method_name}() returned {type(result).__name__} "
+            f"(value: {result}) instead of a coroutine. "
+            "This usually means opensearch-py[async] extra is not installed. "
+            "Install it with: pip install opensearch-py[async]"
+        )
+        logger.error("OpenSearch async method returned non-coroutine", 
+                     method=method_name, 
+                     return_type=type(result).__name__,
+                     return_value=str(result)[:200])
+        raise TypeError(error_msg)
 
     def get_client(self) -> Any:
         """Get or create async OpenSearch client instance.
@@ -151,7 +220,21 @@ class OpenSearchManager:
         try:
             client = self.get_client()
             if self._use_async:
-                info = await client.info()
+                # Safely call async method, handling non-coroutine returns
+                try:
+                    info_coro = self._safe_async_call(client, "info")
+                    info = await info_coro
+                except TypeError as e:
+                    # If async doesn't work, fall back to sync mode
+                    logger.warning(
+                        "OpenSearch async method failed, falling back to sync mode",
+                        error=str(e),
+                    )
+                    self._use_async = False
+                    # Use sync client in thread pool
+                    sync_client = self.get_sync_client()
+                    loop = asyncio.get_event_loop()
+                    info = await loop.run_in_executor(None, sync_client.info)
             else:
                 # Run sync operation in thread pool
                 loop = asyncio.get_event_loop()
@@ -224,7 +307,24 @@ class OpenSearchManager:
 
             start_time = time.time()
             if self._use_async:
-                response = await client.search(index=index, body=body, **kwargs)
+                # Safely call async method, handling non-coroutine returns
+                try:
+                    search_coro = self._safe_async_call(client, "search", index=index, body=body, **kwargs)
+                    response = await search_coro
+                except TypeError as e:
+                    # If async doesn't work, fall back to sync mode
+                    logger.warning(
+                        "OpenSearch async method failed, falling back to sync mode",
+                        error=str(e),
+                        index=index,
+                    )
+                    self._use_async = False
+                    # Use sync client in thread pool
+                    sync_client = self.get_sync_client()
+                    loop = asyncio.get_event_loop()
+                    response = await loop.run_in_executor(
+                        None, lambda: sync_client.search(index=index, body=body, **kwargs)
+                    )
             else:
                 # Run sync operation in thread pool
                 loop = asyncio.get_event_loop()
@@ -309,13 +409,33 @@ class OpenSearchManager:
                 "query": query,
             }
             if self._use_async:
-                response = await client.search(
-                    index=index,
-                    body=scroll_body,
-                    scroll=scroll,
-                    size=size,
-                    **kwargs,
-                )
+                # Safely call async method, handling non-coroutine returns
+                try:
+                    search_coro = self._safe_async_call(
+                        client, "search",
+                        index=index,
+                        body=scroll_body,
+                        scroll=scroll,
+                        size=size,
+                        **kwargs,
+                    )
+                    response = await search_coro
+                except TypeError as e:
+                    # If async doesn't work, fall back to sync mode
+                    logger.warning(
+                        "OpenSearch async method failed, falling back to sync mode",
+                        error=str(e),
+                        index=index,
+                    )
+                    self._use_async = False
+                    sync_client = self.get_sync_client()
+                    loop = asyncio.get_event_loop()
+                    response = await loop.run_in_executor(
+                        None,
+                        lambda: sync_client.search(
+                            index=index, body=scroll_body, scroll=scroll, size=size, **kwargs
+                        ),
+                    )
             else:
                 loop = asyncio.get_event_loop()
                 response = await loop.run_in_executor(
@@ -340,10 +460,28 @@ class OpenSearchManager:
                 # Continue scrolling
                 if scroll_id:
                     if self._use_async:
-                        response = await client.scroll(
-                            scroll_id=scroll_id,
-                            scroll=scroll,
-                        )
+                        # Safely call async method, handling non-coroutine returns
+                        try:
+                            scroll_coro = self._safe_async_call(
+                                client, "scroll",
+                                scroll_id=scroll_id,
+                                scroll=scroll,
+                            )
+                            response = await scroll_coro
+                        except TypeError as e:
+                            # If async doesn't work, fall back to sync mode
+                            logger.warning(
+                                "OpenSearch async method failed, falling back to sync mode",
+                                error=str(e),
+                                index=index,
+                            )
+                            self._use_async = False
+                            sync_client = self.get_sync_client()
+                            loop = asyncio.get_event_loop()
+                            response = await loop.run_in_executor(
+                                None,
+                                lambda: sync_client.scroll(scroll_id=scroll_id, scroll=scroll),
+                            )
                     else:
                         loop = asyncio.get_event_loop()
                         response = await loop.run_in_executor(
@@ -359,7 +497,26 @@ class OpenSearchManager:
             if scroll_id:
                 try:
                     if self._use_async:
-                        await client.clear_scroll(scroll_id=scroll_id)
+                        # Safely call async method, handling non-coroutine returns
+                        try:
+                            clear_coro = self._safe_async_call(
+                                client, "clear_scroll",
+                                scroll_id=scroll_id,
+                            )
+                            await clear_coro
+                        except TypeError as e:
+                            # If async doesn't work, fall back to sync mode
+                            logger.warning(
+                                "OpenSearch async method failed, falling back to sync mode",
+                                error=str(e),
+                                index=index,
+                            )
+                            self._use_async = False
+                            sync_client = self.get_sync_client()
+                            loop = asyncio.get_event_loop()
+                            await loop.run_in_executor(
+                                None, lambda: sync_client.clear_scroll(scroll_id=scroll_id)
+                            )
                     else:
                         loop = asyncio.get_event_loop()
                         await loop.run_in_executor(
