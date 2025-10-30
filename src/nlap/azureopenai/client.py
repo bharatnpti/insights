@@ -1,12 +1,12 @@
 """Azure OpenAI client with Azure AD authentication."""
 
-from typing import Optional
+from typing import Optional, Union
 
 from azure.identity import DefaultAzureCredential
 from openai import AsyncOpenAI
 from openai._client import AsyncClient
 
-from nlap.config.settings import get_settings
+from nlap.config.settings import AzureOpenAISettings, get_settings
 from nlap.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -15,17 +15,22 @@ logger = get_logger(__name__)
 class AzureOpenAIClient:
     """Azure OpenAI client with Azure AD authentication support."""
 
-    def __init__(self, settings: Optional[dict] = None) -> None:
+    def __init__(self, settings: Optional[Union[dict, AzureOpenAISettings]] = None) -> None:
         """Initialize Azure OpenAI client with Azure AD authentication.
 
         Args:
-            settings: Optional settings override (for testing)
+            settings: Optional settings override (dict or AzureOpenAISettings object for testing)
         """
-        self.settings = get_settings().azure_openai if settings is None else settings
+        if settings is None:
+            self.settings = get_settings().azure_openai
+        elif isinstance(settings, dict):
+            self.settings = AzureOpenAISettings(**settings)
+        else:
+            self.settings = settings
         self.credential = DefaultAzureCredential()
         self._client: Optional[AsyncClient] = None
 
-    async def _get_token(self) -> str:
+    def _get_token(self) -> str:
         """Get Azure AD token for Azure OpenAI with proper scope.
 
         Returns:
@@ -35,7 +40,7 @@ class AzureOpenAIClient:
             Exception: If token acquisition fails
         """
         try:
-            token = await self.credential.get_token(
+            token = self.credential.get_token(
                 "https://cognitiveservices.azure.com/.default"
             )
             return str(token.token)
@@ -53,16 +58,18 @@ class AzureOpenAIClient:
         Returns:
             Configured AsyncOpenAI client instance
         """
-        token = await self._get_token()
+        token = self._get_token()
 
-        # Construct base URL - Azure OpenAI endpoint format: https://{resource}.openai.azure.com/
+        # Construct base URL - Azure OpenAI endpoint format with API version:
+        # https://{resource}.openai.azure.com/openai/deployments/{deployment_name}?api-version={api_version}
         base_url = f"{self.settings.endpoint.rstrip('/')}/openai/deployments/{self.settings.deployment_name}"
 
         # Create client with Azure AD token
+        # Note: api_version is included in the URL when making requests, not as init parameter
         client = AsyncOpenAI(
             api_key=token,  # Azure AD token is used as API key
-            api_version=self.settings.api_version,
             base_url=base_url,
+            default_query={"api-version": self.settings.api_version},
         )
 
         logger.info(
