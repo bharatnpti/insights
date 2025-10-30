@@ -106,6 +106,29 @@ class QueryBuilder:
         should_clauses = []
         must_not_clauses = []
 
+        # Check if user explicitly wants istio-proxy logs
+        wants_istio_logs = False
+        all_conditions = (
+            parsed_query.filters.must +
+            parsed_query.filters.should +
+            parsed_query.filters.must_not +
+            (parsed_query.filters.conditions or [])
+        )
+        
+        for condition in all_conditions:
+            # Check if user is filtering for istio-proxy
+            if condition.field in ("k8s_container", "container") and condition.operator == FilterOperator.EQUALS:
+                if condition.value == "istio-proxy" or str(condition.value).lower() == "istio-proxy":
+                    wants_istio_logs = True
+                    break
+
+        # Automatically exclude istio-proxy logs unless explicitly requested
+        if not wants_istio_logs:
+            # Exclude istio-proxy container logs (these are infrastructure proxy logs, not application events)
+            must_not_clauses.append({
+                "term": {"k8s_container.keyword": "istio-proxy"}
+            })
+
         # Add date range filter if present
         if parsed_query.date_range:
             date_clause = self._build_date_range_query(parsed_query.date_range)
@@ -382,12 +405,18 @@ class QueryBuilder:
         Returns:
             Range query clause for date field or None if no dates
         """
-        # Try to determine date field from schema
-        date_field = self._find_date_field()
-
-        if not date_field:
-            # Default common date field names
-            date_field = "@timestamp"
+        # Always prefer @timestamp as it's the standard OpenSearch timestamp field
+        # Even if schema identifies it as a different type, @timestamp is always
+        # the primary timestamp field in OpenSearch
+        date_field = "@timestamp"
+        
+        # Only use alternative if @timestamp doesn't exist in schema AND we find another date field
+        if self.schema_info:
+            if "@timestamp" not in self.schema_info.fields:
+                # @timestamp not found, try to find another date field
+                alternative = self._find_date_field()
+                if alternative:
+                    date_field = alternative
 
         # Format dates as ISO strings
         start_value = None
