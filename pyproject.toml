@@ -43,7 +43,6 @@ dev = [
     "black>=24.1.0",
     "ruff>=0.1.0",
     "mypy>=1.8.0",
-    "types-python-dotenv>=1.0.1",
 ]
 
 [tool.uv]
@@ -54,7 +53,6 @@ dev-dependencies = [
     "black>=24.1.0",
     "ruff>=0.1.0",
     "mypy>=1.8.0",
-    "types-python-dotenv>=1.0.1",
 ]
 
 [tool.pytest.ini_options]
