@@ -3,8 +3,43 @@
 from functools import lru_cache
 from typing import Optional
 
-from pydantic import Field
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class OpenSearchAuthSettings(BaseModel):
+    """OpenSearch authentication settings."""
+
+    username: str = Field(..., description="Basic auth username")
+    password: str = Field(..., description="Basic auth password")
+
+
+class OpenSearchClusterConfig(BaseModel):
+    """OpenSearch cluster configuration."""
+
+    name: str = Field(..., description="Cluster name")
+    host: str = Field(..., description="OpenSearch cluster endpoint")
+    port: int = Field(default=9200, description="OpenSearch port")
+    use_ssl: bool = Field(default=True, description="Enable SSL")
+    verify_certs: bool = Field(default=True, description="Verify SSL certificates")
+    auth: OpenSearchAuthSettings = Field(..., description="Authentication settings")
+    ca_certs: Optional[str] = Field(default=None, description="Path to CA certificates")
+
+    @property
+    def url(self) -> str:
+        """Construct OpenSearch URL."""
+        protocol = "https" if self.use_ssl else "http"
+        return f"{protocol}://{self.host}:{self.port}"
+
+    @property
+    def username(self) -> str:
+        """Get username from auth settings."""
+        return self.auth.username
+
+    @property
+    def password(self) -> str:
+        """Get password from auth settings."""
+        return self.auth.password
 
 
 class OpenSearchSettings(BaseSettings):
