@@ -171,10 +171,10 @@ For quick manual testing without the full test suite:
 export AZURE_ENDPOINT='https://gpt4-uk.openai.azure.com/'
 export AZURE_DEPLOYMENT_NAME='GPT4-UK'
 export AZURE_API_VERSION='2024-10-21'
-python test_azure_openai_manual.py
+uv run python test_azure_openai_manual.py
 
 # Test all quick configurations
-python test_azure_openai_manual.py --all
+uv run python test_azure_openai_manual.py --all
 ```
 
 **Available test configurations:**

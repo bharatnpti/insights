@@ -1,0 +1,4177 @@
+{
+  "timestamp": "2025-10-31T01:27:02.646315",
+  "total_non_event_documents": 10000,
+  "aggregations": {
+    "by_container": {
+      "ia-platform": 10847484,
+      "istio-proxy": 4962695,
+      "anonymization-service": 2015047,
+      "search-service": 1191814,
+      "contract-agent-service": 309263,
+      "oneai-chat-bff": 270109,
+      "invoice-agent-service": 200018,
+      "ivr-billing-agent-service": 170684,
+      "tks-agent-service": 117293,
+      "sim-agent-service": 109614,
+      "order-agent-service": 106738,
+      "sales-retention-agent-service": 81492,
+      "supervisor": 54720,
+      "sales-acquisition-agent-service": 43119,
+      "contract-cancel-agent-service": 34081,
+      "options-agent-service": 32450,
+      "device-agent-service": 21916,
+      "email-agent-service": 17152,
+      "password-agent-service": 17030,
+      "prepaid-agent-service": 15112,
+      "contact-agent-service": 14948,
+      "magentatv-migration-agent-service": 10394,
+      "channel-integration-service": 7260,
+      "voice-supervisor-application": 4314,
+      "appointment-agent-service": 2312,
+      "istio-validation": 822,
+      "flexcard-agent-service": 544,
+      "redis-commander": 67,
+      "web-frontend": 54
+    },
+    "by_level": {
+      "INFO": 15376116,
+      "DEBUG": 171449,
+      "WARN": 79073,
+      "ERROR": 35672,
+      "info": 20677,
+      "error": 15294,
+      "WARNING": 978,
+      "warning": 346,
+      "warn": 268,
+      "fatal": 4
+    },
+    "by_logger": {
+      "com.telekom.ia.platform.inbound.customer.DialogControllerV2": 876542,
+      "org.eclipse.lmos.runtime.core.inbound.DefaultConversationHandler": 846461,
+      "com.telekom.lmos.kernel.ModelResolver": 783883,
+      "com.telekom.ia.platform.arc.LmosAgent": 764207,
+      "com.telekom.ia.platform.assistants.steps.PurgeConversation": 595591,
+      "transactionLogger": 537809,
+      "com.telekom.ia.platform.assistants.billing.functions.mapi.CustomerProfileRetriever": 515227,
+      "com.telekom.ia.platform.assistants.steps.LoadCustomerProfile": 475954,
+      "com.azure.ai.openai.implementation.OpenAIClientImpl$OpenAIClientService.getChatCompletions": 470609,
+      "com.telekom.ia.platform.inbound.Messages": 405841,
+      "com.telekom.ia.platform.assistants.steps.FMCConversationMessageFilter": 333667,
+      "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl": 310385,
+      "com.telekom.ia.platform.utils.TracingUtils": 278090,
+      "org.eclipse.lmos.arc.agent.client.graphql.GraphQlAgentClient": 277946,
+      "com.telekom.ia.platform.retriever.SearchServiceContextRetriever": 247480,
+      "com.telekom.ia.platform.assistants.steps.flexcards.GenerateFlexCards": 236127,
+      "ArcDSL": 235656,
+      "com.telekom.lmos.extension.openai.AzureAIClient": 235327,
+      "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler": 225174,
+      "com.telekom.ia.platform.assistants.RequestContextRetriever": 213156,
+      "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize": 210799,
+      "com.telekom.ia.platform.routing.steps.RouteRequest": 210786,
+      "com.telekom.ia.platform.assistants.faq.steps.FilterRequest": 188439,
+      "com.telekom.ia.platform.assistants.billing.steps.DisplayBillingOptions": 187495,
+      "com.telekom.ia.platform.agent.OtelTracer": 176828,
+      "com.telekom.ia.platform.routing.TenantIntentFilter": 157771,
+      "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor": 147945,
+      "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription": 146396,
+      "com.telekom.ia.platform.routing.AgentExecutor": 143590,
+      "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient": 136429
+    },
+    "by_service": {
+      "ia-platform": 12465070,
+      "anonymization-service": 4035573,
+      "search-service": 1651952,
+      "contract-agent-service": 364312,
+      "oneai-chat-bff": 328292,
+      "invoice-agent-service": 254584,
+      "ivr-billing-agent-service": 198158,
+      "search-service-beta": 193332,
+      "order-agent-service": 147011,
+      "sim-agent-service": 146853,
+      "tks-agent-service": 141578,
+      "flexcard-agent-service": 111752,
+      "sales-retention-agent-service": 105237,
+      "contract-cancel-agent-service": 67812,
+      "sales-acquisition-agent-service": 62265,
+      "supervisor": 52213,
+      "options-agent-service": 45953,
+      "device-agent-service": 35631,
+      "password-agent-service": 29903,
+      "ia-platform-beta": 29460,
+      "email-agent-service": 27193,
+      "contact-agent-service": 25594,
+      "magentatv-migration-agent-service": 20707,
+      "prepaid-agent-service": 20607,
+      "voice-supervisor-application": 19728,
+      "supervisor-beta": 12792,
+      "channel-integration-service": 10811,
+      "contract-agent-service-beta": 9777,
+      "appointment-agent-service": 9241,
+      "ivr-billing-agent-service-beta": 8080
+    },
+    "by_message_keywords": {
+      "RemoteRecognizer gave no mapping results.": 1447651,
+      "POST http://anonymization-service:8080/api/v2/de/mapanonymize 200": 389067,
+      "ParentBased: Decision.RECORD_AND_SAMPLE": 345589,
+      "Setting OpenTelemetry sdk...": 277946,
+      "Classifier feature is not active, using old classifier for agent routing": 240537,
+      "ChatCompletions: stop (1)": 234519,
+      "Processing routing request ": 210784,
+      "Chat request(Anonymized) received with chat transcript": 210783,
+      "conversation history is being purged ": 198530,
+      "Calling agent using address conversationHandler.": 174885,
+      "inside LoadCustomerProfile": 162057,
+      "Profile loading is enabled for tenant [de] ": 162055,
+      "Active features: ActiveFeatures(value=[])": 148813,
+      "Received predictions: null": 142329,
+      "relevantPhoneNumber present: false and callerPhoneNumber present: false": 135476,
+      "MAPI Call completed": 134275,
+      "Found Asset privilege=superAdmin, type=billingAccount productCategories=[null]  name=*nto": 126115,
+      "Resolved LLM model [GPT-4o-mini] from cache": 125747,
+      "size of previous conversation history is :3": 125549,
+      "Skip FMC greeting message with role: assistant and content wie kann ich Ihnen heute helfen?": 122705
+    }
+  },
+  "categories_summary": {
+    "by_container": {
+      "istio-proxy": 276,
+      "ia-platform": 504,
+      "order-agent-service": 5,
+      "search-service": 103,
+      "anonymization-service": 77,
+      "contract-agent-service": 10,
+      "invoice-agent-service": 6,
+      "sales-acquisition-agent-service": 2,
+      "oneai-chat-bff": 1,
+      "sim-agent-service": 12,
+      "options-agent-service": 1,
+      "prepaid-agent-service": 3
+    },
+    "by_log_level": {
+      "unknown": 273,
+      "info": 6,
+      "INFO": 709,
+      "DEBUG": 11,
+      "WARN": 1
+    },
+    "by_logger": {
+      "unknown": 459,
+      "com.telekom.ia.platform.inbound.customer.LongtailController": 5,
+      "com.telekom.ia.platform.assistants.steps.PurgeConversation": 27,
+      "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize": 6,
+      "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription": 7,
+      "com.telekom.ia.platform.agent.OtelTracer": 4,
+      "com.azure.ai.openai.implementation.OpenAIClientImpl$OpenAIClientService.getChatCompletions": 24,
+      "com.telekom.ia.platform.routing.TenantIntentFilter": 5,
+      "com.telekom.ia.platform.routing.steps.RouteToAgentBasedOnIntent": 3,
+      "com.telekom.ia.platform.routing.AgentExecutor": 8,
+      "com.telekom.ia.platform.assistants.steps.LoadCustomerProfile": 22,
+      "com.telekom.ia.platform.assistants.billing.functions.mapi.CustomerProfileRetriever": 27,
+      "com.telekom.ia.platform.arc.LmosAgent": 31,
+      "org.eclipse.lmos.runtime.core.inbound.DefaultConversationHandler": 46,
+      "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler": 6,
+      "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor": 11,
+      "com.telekom.lmos.kernel.ModelResolver": 34,
+      "com.telekom.ia.platform.assistants.faq.steps.FilterRequest": 8,
+      "com.telekom.ia.platform.assistants.RequestContextRetriever": 9,
+      "com.telekom.ia.platform.assistants.faq.steps.MultiSearchQueryRephraseStep": 12,
+      "com.telekom.ia.platform.retriever.SearchServiceContextRetriever": 17,
+      "com.telekom.ia.platform.utils.TracingUtils": 20,
+      "transactionLogger": 16,
+      "com.telekom.ia.platform.assistants.faq.steps.ReFormulationStep": 4,
+      "com.telekom.ia.platform.assistants.evaluator.PlatformLLMSelfEvaluator": 2,
+      "com.telekom.ia.platform.inbound.Messages": 16,
+      "com.telekom.ia.platform.assistants.billing.steps.DisplayBillingOptions": 4,
+      "com.telekom.lmos.extension.openai.AzureAIClient": 17,
+      "com.telekom.ia.platform.assistants.faq.steps.WhitelistURLRestore": 3,
+      "com.telekom.ia.platform.routing.steps.RouteRequest": 6
+    },
+    "by_service": {
+      "search-service": 149,
+      "contract-agent-service-beta": 1,
+      "ia-platform": 576,
+      "anonymization-service": 166,
+      "order-agent-service": 7,
+      "search-service-beta": 32,
+      "ia-platform-beta": 1,
+      "contract-agent-service": 12,
+      "invoice-agent-service-beta": 1,
+      "appointment-agent-service": 1,
+      "sim-agent-service": 15,
+      "ivr-billing-agent-service-beta": 3,
+      "flexcard-agent-service": 10,
+      "ivr-billing-agent-service": 1,
+      "password-agent-service-beta": 1,
+      "invoice-agent-service": 7,
+      "sales-acquisition-agent-service": 3,
+      "oneai-chat-bff": 3,
+      "options-agent-service": 2,
+      "sales-retention-agent-service-beta": 2,
+      "magentatv-migration-agent-service": 1,
+      "tks-agent-service": 1,
+      "contact-agent-service-beta": 1,
+      "prepaid-agent-service": 4
+    },
+    "by_message_pattern": {
+      "other": 784,
+      "http": 173,
+      "error": 15,
+      "completion": 26,
+      "startup": 2
+    }
+  },
+  "field_analysis": {
+    "by_container": {
+      "istio-proxy": {
+        "sample_count": 276,
+        "total_fields": 35,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name",
+          "scope",
+          "time"
+        ]
+      },
+      "ia-platform": {
+        "sample_count": 504,
+        "total_fields": 34,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "status_code",
+          "step",
+          "tenant",
+          "tenantId",
+          "thread_name",
+          "time"
+        ]
+      },
+      "order-agent-service": {
+        "sample_count": 5,
+        "total_fields": 40,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent"
+        ]
+      },
+      "search-service": {
+        "sample_count": 103,
+        "total_fields": 16,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "extra",
+          "file",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "time"
+        ]
+      },
+      "anonymization-service": {
+        "sample_count": 77,
+        "total_fields": 15,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "file",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "time"
+        ]
+      },
+      "contract-agent-service": {
+        "sample_count": 10,
+        "total_fields": 40,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent"
+        ]
+      },
+      "invoice-agent-service": {
+        "sample_count": 6,
+        "total_fields": 43,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "input",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "method",
+          "phase",
+          "prompt"
+        ]
+      },
+      "sales-acquisition-agent-service": {
+        "sample_count": 2,
+        "total_fields": 40,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent"
+        ]
+      },
+      "oneai-chat-bff": {
+        "sample_count": 1,
+        "total_fields": 18,
+        "common_fields": [
+          "@timestamp",
+          "HOSTNAME",
+          "application_id",
+          "cicd",
+          "cicd-pipeline",
+          "environment",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "thread_name",
+          "time"
+        ]
+      },
+      "sim-agent-service": {
+        "sample_count": 12,
+        "total_fields": 48,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "duration",
+          "environment",
+          "filter",
+          "input",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "method",
+          "operation"
+        ]
+      },
+      "options-agent-service": {
+        "sample_count": 1,
+        "total_fields": 39,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent",
+          "spanId"
+        ]
+      },
+      "prepaid-agent-service": {
+        "sample_count": 3,
+        "total_fields": 11,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "message"
+        ]
+      }
+    },
+    "by_log_level": {
+      "unknown": {
+        "sample_count": 273,
+        "total_fields": 31,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address",
+          "upstream_service_time"
+        ]
+      },
+      "info": {
+        "sample_count": 6,
+        "total_fields": 17,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "latency",
+          "level",
+          "message",
+          "resourceName",
+          "scope",
+          "ttl"
+        ]
+      },
+      "INFO": {
+        "sample_count": 709,
+        "total_fields": 47,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "extra",
+          "featureId",
+          "file",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message"
+        ]
+      },
+      "DEBUG": {
+        "sample_count": 11,
+        "total_fields": 17,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "cicd",
+          "cicd-pipeline",
+          "environment",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "thread_name",
+          "time"
+        ]
+      },
+      "WARN": {
+        "sample_count": 1,
+        "total_fields": 40,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent"
+        ]
+      }
+    },
+    "by_logger": {
+      "unknown": {
+        "sample_count": 459,
+        "total_fields": 38,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "extra",
+          "file",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags"
+        ]
+      },
+      "com.telekom.ia.platform.inbound.customer.LongtailController": {
+        "sample_count": 5,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId",
+          "x-correlation-id"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.steps.PurgeConversation": {
+        "sample_count": 27,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize": {
+        "sample_count": 6,
+        "total_fields": 28,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription": {
+        "sample_count": 7,
+        "total_fields": 38,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent",
+          "spanId",
+          "step"
+        ]
+      },
+      "com.telekom.ia.platform.agent.OtelTracer": {
+        "sample_count": 4,
+        "total_fields": 38,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent",
+          "spanId",
+          "step"
+        ]
+      },
+      "com.azure.ai.openai.implementation.OpenAIClientImpl$OpenAIClientService.getChatCompletions": {
+        "sample_count": 24,
+        "total_fields": 33,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "model",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "tenantId",
+          "thread_name",
+          "time"
+        ]
+      },
+      "com.telekom.ia.platform.routing.TenantIntentFilter": {
+        "sample_count": 5,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.routing.steps.RouteToAgentBasedOnIntent": {
+        "sample_count": 3,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.routing.AgentExecutor": {
+        "sample_count": 8,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.steps.LoadCustomerProfile": {
+        "sample_count": 22,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.billing.functions.mapi.CustomerProfileRetriever": {
+        "sample_count": 27,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "com.telekom.ia.platform.arc.LmosAgent": {
+        "sample_count": 31,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "org.eclipse.lmos.runtime.core.inbound.DefaultConversationHandler": {
+        "sample_count": 46,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId",
+          "vaspConnId"
+        ]
+      },
+      "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler": {
+        "sample_count": 6,
+        "total_fields": 40,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "phase",
+          "returnUseCaseId",
+          "sourceChannelId",
+          "source_intent"
+        ]
+      },
+      "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor": {
+        "sample_count": 11,
+        "total_fields": 17,
+        "common_fields": [
+          "@timestamp",
+          "application_id",
+          "cicd",
+          "cicd-pipeline",
+          "environment",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "thread_name",
+          "time"
+        ]
+      },
+      "com.telekom.lmos.kernel.ModelResolver": {
+        "sample_count": 34,
+        "total_fields": 32,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.faq.steps.FilterRequest": {
+        "sample_count": 8,
+        "total_fields": 31,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.RequestContextRetriever": {
+        "sample_count": 9,
+        "total_fields": 31,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId"
+        ]
+      },
+      "com.telekom.ia.platform.assistants.faq.steps.MultiSearchQueryRephraseStep": {
+        "sample_count": 12,
+        "total_fields": 31,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "referrerId",
+          "source_intent",
+          "spanId",
+          "step",
+          "tenant",
+          "thread_name",
+          "time",
+          "traceId",
+          "turnId"
+        ]
+      }
+    },
+    "by_service": {
+      "search-service": {
+        "sample_count": 149,
+        "total_fields": 36,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "extra",
+          "file",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name"
+        ]
+      },
+      "contract-agent-service-beta": {
+        "sample_count": 1,
+        "total_fields": 14,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "scope"
+        ]
+      },
+      "ia-platform": {
+        "sample_count": 576,
+        "total_fields": 54,
+        "common_fields": [
+          "@timestamp",
+          "agent",
+          "application_id",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "featureId",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "languageModel",
+          "level",
+          "logger_name",
+          "message",
+          "method",
+          "path",
+          "protocol"
+        ]
+      },
+      "anonymization-service": {
+        "sample_count": 166,
+        "total_fields": 35,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "file",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name",
+          "time"
+        ]
+      },
+      "order-agent-service": {
+        "sample_count": 7,
+        "total_fields": 60,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "authority",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level"
+        ]
+      },
+      "search-service-beta": {
+        "sample_count": 32,
+        "total_fields": 36,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "file",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name",
+          "scope"
+        ]
+      },
+      "ia-platform-beta": {
+        "sample_count": 1,
+        "total_fields": 20,
+        "common_fields": [
+          "@timestamp",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "response_code",
+          "response_flags",
+          "time",
+          "upstream_cluster",
+          "upstream_host"
+        ]
+      },
+      "contract-agent-service": {
+        "sample_count": 12,
+        "total_fields": 60,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "authority",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level"
+        ]
+      },
+      "invoice-agent-service-beta": {
+        "sample_count": 1,
+        "total_fields": 21,
+        "common_fields": [
+          "@timestamp",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "response_code",
+          "response_flags",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address"
+        ]
+      },
+      "appointment-agent-service": {
+        "sample_count": 1,
+        "total_fields": 14,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "scope"
+        ]
+      },
+      "sim-agent-service": {
+        "sample_count": 15,
+        "total_fields": 65,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "authority",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "input",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version"
+        ]
+      },
+      "ivr-billing-agent-service-beta": {
+        "sample_count": 3,
+        "total_fields": 25,
+        "common_fields": [
+          "@timestamp",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "id",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "message",
+          "response_code",
+          "response_flags",
+          "scope",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address"
+        ]
+      },
+      "flexcard-agent-service": {
+        "sample_count": 10,
+        "total_fields": 30,
+        "common_fields": [
+          "@timestamp",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags",
+          "route_name",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address",
+          "user_agent"
+        ]
+      },
+      "ivr-billing-agent-service": {
+        "sample_count": 1,
+        "total_fields": 21,
+        "common_fields": [
+          "@timestamp",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "response_code",
+          "response_flags",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address"
+        ]
+      },
+      "password-agent-service-beta": {
+        "sample_count": 1,
+        "total_fields": 16,
+        "common_fields": [
+          "@timestamp",
+          "cicd",
+          "cicd-pipeline",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "latency",
+          "level",
+          "message",
+          "resourceName",
+          "scope",
+          "ttl"
+        ]
+      },
+      "invoice-agent-service": {
+        "sample_count": 7,
+        "total_fields": 61,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "authority",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "input",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version"
+        ]
+      },
+      "sales-acquisition-agent-service": {
+        "sample_count": 3,
+        "total_fields": 59,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "authority",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "callingAgent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level"
+        ]
+      },
+      "oneai-chat-bff": {
+        "sample_count": 3,
+        "total_fields": 39,
+        "common_fields": [
+          "@timestamp",
+          "HOSTNAME",
+          "application_id",
+          "authority",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message",
+          "method",
+          "path",
+          "protocol",
+          "request_id",
+          "requested_server_name",
+          "response_code",
+          "response_code_details",
+          "response_flags"
+        ]
+      },
+      "options-agent-service": {
+        "sample_count": 2,
+        "total_fields": 49,
+        "common_fields": [
+          "@timestamp",
+          "activeFeatures",
+          "agent",
+          "application_id",
+          "authLevel",
+          "authTechnicalError",
+          "beta",
+          "bytes_received",
+          "bytes_sent",
+          "channelId",
+          "cicd",
+          "cicd-pipeline",
+          "conversationId",
+          "correlationId",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "environment",
+          "filter",
+          "isAppDeeplinksEnabled",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "level",
+          "logger_name",
+          "message"
+        ]
+      },
+      "sales-retention-agent-service-beta": {
+        "sample_count": 2,
+        "total_fields": 21,
+        "common_fields": [
+          "@timestamp",
+          "bytes_received",
+          "bytes_sent",
+          "cicd",
+          "cicd-pipeline",
+          "downstream_local_address",
+          "downstream_remote_address",
+          "duration",
+          "k8s_container",
+          "k8s_host",
+          "k8s_image",
+          "k8s_name",
+          "k8s_namespace",
+          "k8s_pod",
+          "k8s_version",
+          "response_code",
+          "response_flags",
+          "time",
+          "upstream_cluster",
+          "upstream_host",
+          "upstream_local_address"
+        ]
+      }
+    }
+  },
+  "pattern_analysis": {
+    "field_stats": {
+      "k8s_namespace": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "oneai-platform",
+          "oneai-platform",
+          "oneai-platform"
+        ]
+      },
+      "downstream_remote_address": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "172.21.218.136:47856",
+          "172.21.218.136:47856",
+          "172.21.209.73:36724"
+        ]
+      },
+      "authority": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "qdrant.qdrant.svc.cluster.local:6334",
+          "qdrant.qdrant.svc.cluster.local:6334",
+          "de-ner-service.tools-api.svc.cluster.local:8080"
+        ]
+      },
+      "duration": {
+        "containers": [
+          "ia-platform",
+          "istio-proxy",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "unknown"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "unknown"
+        ],
+        "sample_values": [
+          "1",
+          "2",
+          "13"
+        ]
+      },
+      "upstream_host": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "172.21.209.41:6334",
+          "172.21.209.41:6334",
+          "172.21.212.135:8080"
+        ]
+      },
+      "upstream_cluster": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "outbound|6334||qdrant.qdrant.svc.cluster.local",
+          "outbound|6334||qdrant.qdrant.svc.cluster.local",
+          "outbound|8080||de-ner-service.tools-api.svc.cluster.local"
+        ]
+      },
+      "response_code": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "200",
+          "200",
+          "200"
+        ]
+      },
+      "k8s_version": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "1.35.0-12fbd1e-1.23_6.1758133907",
+          "1.35.0-12fbd1e-1.23_6.1758133907",
+          "0.103.0-d5b0302-1.23_6.1761164966"
+        ]
+      },
+      "upstream_service_time": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "1",
+          "2",
+          "13"
+        ]
+      },
+      "downstream_local_address": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "10.100.254.177:6334",
+          "10.100.254.177:6334",
+          "10.100.224.80:8080"
+        ]
+      },
+      "time": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "istio-proxy"
+        ],
+        "levels": [
+          "INFO",
+          "unknown",
+          "WARN",
+          "DEBUG"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "2025-10-27T23:59:21.902157645Z",
+          "2025-10-27T23:59:21.902194886Z",
+          "2025-10-27T23:59:33.662028248Z"
+        ]
+      },
+      "request_id": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "c39a0491-4dab-4360-b4e1-3df50d0b61b8",
+          "52a73cdd-2924-48be-abd4-b7d5492c930d",
+          "bcd6a2b8-2533-4781-a91e-d57ba448875b"
+        ]
+      },
+      "k8s_name": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "search-service",
+          "search-service",
+          "contract-agent-service-beta"
+        ]
+      },
+      "upstream_local_address": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "172.21.218.136:36866",
+          "172.21.218.136:36866",
+          "172.21.209.73:35940"
+        ]
+      },
+      "cicd": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "search-service",
+          "search-service",
+          "contract-agent-service-beta"
+        ]
+      },
+      "user_agent": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "python-client/1.15.1 python/3.11.13 grpc-python/1.75.0 grpc-c/50.0.0 (linux; chttp2)",
+          "python-client/1.15.1 python/3.11.13 grpc-python/1.75.0 grpc-c/50.0.0 (linux; chttp2)",
+          "python-requests/2.32.5"
+        ]
+      },
+      "k8s_pod": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "search-service-7b7bc98c99-6mmr5",
+          "search-service-7b7bc98c99-6mmr5",
+          "contract-agent-service-beta-9d8bb4d8-vz8zq"
+        ]
+      },
+      "k8s_host": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "ip-172-21-217-53.eu-central-1.compute.internal",
+          "ip-172-21-217-53.eu-central-1.compute.internal",
+          "ip-172-21-213-39.eu-central-1.compute.internal"
+        ]
+      },
+      "response_flags": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "-",
+          "-",
+          "-"
+        ]
+      },
+      "@timestamp": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "2025-10-27T23:59:21.819Z",
+          "2025-10-27T23:59:21.823Z",
+          "2025-10-27T23:59:30.628162Z"
+        ]
+      },
+      "path": {
+        "containers": [
+          "ia-platform",
+          "istio-proxy",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "unknown"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "unknown"
+        ],
+        "sample_values": [
+          "/qdrant.Collections/ListAliases",
+          "/qdrant.Points/Query",
+          "/v2/models/hf-deepset-gelectra-large-6/infer"
+        ]
+      },
+      "protocol": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "HTTP/2",
+          "HTTP/2",
+          "HTTP/1.1"
+        ]
+      },
+      "method": {
+        "containers": [
+          "ia-platform",
+          "istio-proxy",
+          "sim-agent-service",
+          "invoice-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "unknown"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "unknown",
+          "com.telekom.llm.mapi.client.auth.OAuthClient"
+        ],
+        "sample_values": [
+          "POST",
+          "POST",
+          "POST"
+        ]
+      },
+      "bytes_sent": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "198",
+          "645",
+          "132"
+        ]
+      },
+      "cicd-pipeline": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "50597233-274061978",
+          "50597233-274061978",
+          "52360557-283466544"
+        ]
+      },
+      "response_code_details": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "via_upstream",
+          "via_upstream",
+          "via_upstream"
+        ]
+      },
+      "k8s_image": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "artifactory.devops.telekom.de/hub.docker.com/istio/proxyv2:1.26.3",
+          "artifactory.devops.telekom.de/hub.docker.com/istio/proxyv2:1.26.3",
+          "artifactory.devops.telekom.de/hub.docker.com/istio/proxyv2:1.26.3"
+        ]
+      },
+      "route_name": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "default",
+          "default",
+          "default"
+        ]
+      },
+      "k8s_container": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "istio-proxy",
+          "istio-proxy",
+          "istio-proxy"
+        ]
+      },
+      "bytes_received": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "5",
+          "4136",
+          "145"
+        ]
+      },
+      "id": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "info"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "19",
+          "192",
+          "264"
+        ]
+      },
+      "scope": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "info"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "xdsproxy",
+          "xdsproxy",
+          "cache"
+        ]
+      },
+      "level": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "istio-proxy"
+        ],
+        "levels": [
+          "DEBUG",
+          "INFO",
+          "WARN",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "info",
+          "INFO",
+          "INFO"
+        ]
+      },
+      "message": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "oneai-chat-bff",
+          "search-service",
+          "prepaid-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN",
+          "DEBUG",
+          "unknown",
+          "info"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "connected to delta upstream XDS server: istiod.istio-system.svc:15012",
+          "Active features: ActiveFeatures(value=[])",
+          "conversation history is being purged "
+        ]
+      },
+      "source_intent": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "nlu_fallback",
+          "nlu_fallback",
+          "nlu_fallback"
+        ]
+      },
+      "environment": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "oneai-chat-bff",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "DEBUG",
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "live,logformat-json",
+          "live,logformat-json",
+          "live,logformat-json"
+        ]
+      },
+      "referrerId": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "conversationId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "e55686d7-7f6a-4640-a26f-5796bad16936",
+          "e55686d7-7f6a-4640-a26f-5796bad16936",
+          "e55686d7-7f6a-4640-a26f-5796bad16936"
+        ]
+      },
+      "vaspConnId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "thread_name": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "oneai-chat-bff",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "DEBUG",
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "DefaultDispatcher-worker-13",
+          "DefaultDispatcher-worker-13",
+          "DefaultDispatcher-worker-13"
+        ]
+      },
+      "correlationId": {
+        "containers": [
+          "anonymization-service",
+          "order-agent-service",
+          "sales-acquisition-agent-service",
+          "search-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "78eb0287-03b8-47df-b837-9c6f1e22c700",
+          "78eb0287-03b8-47df-b837-9c6f1e22c700",
+          "78eb0287-03b8-47df-b837-9c6f1e22c700"
+        ]
+      },
+      "turnId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "08a928f7-0093-4f70-98c0-341098d536f1",
+          "08a928f7-0093-4f70-98c0-341098d536f1",
+          "08a928f7-0093-4f70-98c0-341098d536f1"
+        ]
+      },
+      "channelId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "ONEAPP",
+          "ONEAPP",
+          "ONEAPP"
+        ]
+      },
+      "application_id": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "oneai-chat-bff",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "DEBUG",
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "ia-platform-service",
+          "ia-platform-service",
+          "ia-platform-service"
+        ]
+      },
+      "featureId": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "languageModel": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "GPT-4o-mini",
+          "GPT-4o-mini",
+          "GPT-4o-mini"
+        ]
+      },
+      "logger_name": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "oneai-chat-bff",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "DEBUG",
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "io.opentelemetry.exporter.sender.okhttp.internal.RetryInterceptor",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory"
+        ],
+        "sample_values": [
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.assistants.steps.PurgeConversation",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize"
+        ]
+      },
+      "tenant": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "de",
+          "de",
+          "de"
+        ]
+      },
+      "step": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.assistants.anonymization.steps.Anonymize",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ",
+          "com.telekom.ia.platform.assistants.steps.FMCConversationMessageFilter"
+        ],
+        "sample_values": [
+          "PurgeConversation",
+          "Anonymize",
+          "LmosAgent"
+        ]
+      },
+      "spanId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "transactionLogger",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "e52424587e078d92",
+          "e52424587e078d92",
+          "0000000000000000"
+        ]
+      },
+      "returnUseCaseId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "true",
+          "true",
+          "true"
+        ]
+      },
+      "authLevel": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "2",
+          "2",
+          "2"
+        ]
+      },
+      "isAppDeeplinksEnabled": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "false",
+          "false",
+          "false"
+        ]
+      },
+      "agent": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.assistants.RequestContextRetriever",
+          "com.telekom.lmos.extension.openai.AzureAIClient",
+          "com.telekom.ia.platform.assistants.faq.steps.ProcessResponse",
+          "UseCasesLoader",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl",
+          "com.telekom.ia.platform.utils.TracingUtils",
+          "com.telekom.ia.platform.assistants.faq.steps.FilterRequest",
+          "com.telekom.ia.platform.assistants.faq.steps.ReFormulationStep"
+        ],
+        "sample_values": [
+          "order-agent-service",
+          "order-agent-service",
+          "order-agent-service"
+        ]
+      },
+      "sourceChannelId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "ONEAPP",
+          "ONEAPP",
+          "ONEAPP"
+        ]
+      },
+      "traceId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.assistants.faq.steps.URLWhitelisting",
+          "com.telekom.ia.platform.inbound.Messages",
+          "com.telekom.ia.platform.routing.AgentExecutor",
+          "com.telekom.ia.platform.assistants.faq.utils.EncodingUtils",
+          "com.telekom.ia.platform.routing.TenantIntentFilter",
+          "com.telekom.ia.platform.inbound.customer.LongtailController",
+          "com.telekom.ia.platform.arc.LmosAgent",
+          "com.telekom.ia.platform.routing.steps.ClassifyIntentCategory",
+          "transactionLogger",
+          "com.telekom.ia.platform.assistants.billing.steps.FallbackToFAQ"
+        ],
+        "sample_values": [
+          "f2f2ac3c0319337d6f218a0715e234bf",
+          "f2f2ac3c0319337d6f218a0715e234bf",
+          "00000000000000000000000000000000"
+        ]
+      },
+      "callingAgent": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "order-agent-service",
+          "order-agent-service",
+          "order-agent-service"
+        ]
+      },
+      "beta": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "false",
+          "false",
+          "false"
+        ]
+      },
+      "authTechnicalError": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "false",
+          "false",
+          "false"
+        ]
+      },
+      "tenantId": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "ia-platform",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "com.azure.ai.openai.implementation.OpenAIClientImpl$OpenAIClientService.getChatCompletions",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "de",
+          "de",
+          "de"
+        ]
+      },
+      "variant": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "activeFeatures": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "com.telekom.ia.platform.agent.OtelTracer",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "org.eclipse.lmos.arc.graphql.inbound.AgentSubscription",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "filter": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler"
+        ],
+        "sample_values": [
+          "UseCaseResponseHandler",
+          "UseCaseResponseHandler",
+          "InstructionLeakingOutputFilter"
+        ]
+      },
+      "phase": {
+        "containers": [
+          "sales-acquisition-agent-service",
+          "order-agent-service",
+          "contract-agent-service",
+          "invoice-agent-service",
+          "options-agent-service",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO",
+          "WARN"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.agent.extensions.InstructionLeakingOutputFilter",
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "ArcDSL",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever",
+          "org.eclipse.lmos.arc.assistants.support.filters.UseCaseResponseHandler",
+          "UseCasesLoader",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "FilterOutput",
+          "FilterOutput",
+          "FilterInput"
+        ]
+      },
+      "requested_server_name": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "outbound_.8080_._.order-agent-service.oneai-platform.svc.cluster.local",
+          "stargate.prod.dhei.telekom.de",
+          "outbound_.8080_._.search-service.oneai-platform.svc.cluster.local"
+        ]
+      },
+      "file": {
+        "containers": [
+          "search-service",
+          "anonymization-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "/usr/local/lib/python3.11/site-packages/search_service/api/search.py:131",
+          "/usr/local/lib/python3.11/site-packages/search_service/api/search.py:131",
+          "/app/anonymization_service/recognizer.py:180"
+        ]
+      },
+      "x-correlation-id": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.ia.platform.inbound.customer.DialogControllerV2",
+          "com.telekom.lmos.kernel.ModelResolver",
+          "transactionLogger",
+          "com.telekom.ia.platform.inbound.customer.LongtailController"
+        ],
+        "sample_values": [
+          "48d29173-befa-4c17-be44-c0eb3be4bb0b",
+          "48d29173-befa-4c17-be44-c0eb3be4bb0b",
+          "4d271f6b-ecca-405c-8291-b50353aefdd6"
+        ]
+      },
+      "extra": {
+        "containers": [
+          "search-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "{\"span\":{\"trace_id\":\"0xfd8d2de34e366c59c5bf333c4ae37df2\",\"kind\":\"<SpanKind.SERVER: 1>\",\"trace_state\":[],\"parent_context\":{\"current-span-7b0ac41c-4bf9-4778-98a2-4e493636b19b\":\"NonRecordingSpan(SpanCont...",
+          "{\"decision\":\"<Decision.RECORD_AND_SAMPLE: 2>\",\"span\":{\"trace_id\":\"0xfd8d2de34e366c59c5bf333c4ae37df2\",\"kind\":\"<SpanKind.SERVER: 1>\",\"trace_state\":[],\"parent_context\":{\"current-span-d41114d5-f0d7-4646-...",
+          "{\"request\":{\"query\":\"Telekom App Funktionen \u00dcbersicht fehlende Inhalte\",\"limit\":3,\"filters\":[]},\"documents\":[{\"score\":0.28267201781272888,\"search_metric\":\"Cosine\",\"metadata\":{\"history\":\"DeFaq-NonAbsol..."
+        ]
+      },
+      "status_code": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "transactionLogger"
+        ],
+        "sample_values": [
+          "201",
+          "304",
+          "200"
+        ]
+      },
+      "model": {
+        "containers": [
+          "ia-platform"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.azure.ai.openai.implementation.OpenAIClientImpl$OpenAIClientService.getChatCompletions"
+        ],
+        "sample_values": [
+          "GPT4O",
+          "GPT-4O-MINI-CONTENTFILTER-DISABLED",
+          "GPT-4O-MINI-CONTENTFILTER-DISABLED"
+        ]
+      },
+      "x_forwarded_for": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "unknown"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "100.65.66.8, 100.65.49.76,172.21.221.6",
+          "100.65.82.20, 100.65.49.76,172.21.221.6",
+          "100.65.82.20, 100.65.49.76,172.21.220.182"
+        ]
+      },
+      "ttl": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "info"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "86399625859638",
+          "86399631731025"
+        ]
+      },
+      "resourceName": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "info"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "default",
+          "default"
+        ]
+      },
+      "latency": {
+        "containers": [
+          "istio-proxy"
+        ],
+        "levels": [
+          "info"
+        ],
+        "loggers": [
+          "unknown"
+        ],
+        "sample_values": [
+          "96034429",
+          "86805263"
+        ]
+      },
+      "operation": {
+        "containers": [
+          "ia-platform",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient"
+        ],
+        "sample_values": [
+          "GET",
+          "GET",
+          "GET"
+        ]
+      },
+      "responseBodyEmpty": {
+        "containers": [
+          "ia-platform",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient"
+        ],
+        "sample_values": [
+          "false",
+          "false",
+          "false"
+        ]
+      },
+      "serviceMethod": {
+        "containers": [
+          "ia-platform",
+          "sim-agent-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient"
+        ],
+        "sample_values": [
+          "ProfileManagementClient.getProfilesByIdentifier",
+          "ProfileManagementClient.getProfilesByIdentifier",
+          "ProfileManagementClient.getProfilesByIdentifier"
+        ]
+      },
+      "prompt": {
+        "containers": [
+          "sim-agent-service",
+          "invoice-agent-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever"
+        ],
+        "sample_values": [
+          "    ## Role and Responsibilities \n    You are a customer support agent for the Deutsche Telekom.\n    Your task is to support customers with their service inquiries.\n    Your ton should be friendly and...",
+          "    ## Role and Responsibilities \n    You are a customer support agent for the Deutsche Telekom.\n    Your task is to support customers with their service inquiries.\n    Your ton should be friendly and...",
+          "    ## Role and Responsibilities \n    You are a customer support agent for the Deutsche Telekom.\n    Your task is to support customers with their service inquiries.\n    Your ton should be friendly and..."
+        ]
+      },
+      "input": {
+        "containers": [
+          "sim-agent-service",
+          "invoice-agent-service"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.llm.mapi.client.MultiTenantHttpClient$RealKtorBasedClient",
+          "com.telekom.llm.mapi.core.KtorClientLoggerDefaultImpl",
+          "com.telekom.ia.platform.agent.mapi.InvoiceAccountBalanceRetriever"
+        ],
+        "sample_values": [
+          "User:[wie kann ich meine IBAN \u00e4ndern]",
+          "User:[wie kann ich meine IBAN \u00e4ndern]",
+          "User:[wie kann ich meine IBAN \u00e4ndern]"
+        ]
+      },
+      "HOSTNAME": {
+        "containers": [
+          "oneai-chat-bff"
+        ],
+        "levels": [
+          "INFO"
+        ],
+        "loggers": [
+          "com.telekom.common.rest.error.handler.KtorClientLoggerDefaultImpl"
+        ],
+        "sample_values": [
+          "oneai-chat-bff-6c4c75dd7f-h7xwj"
+        ]
+      }
+    },
+    "total_fields": 80
+  },
+  "top_fields": {
+    "k8s_namespace": 1000,
+    "k8s_version": 1000,
+    "k8s_name": 1000,
+    "cicd": 1000,
+    "k8s_pod": 1000,
+    "k8s_host": 1000,
+    "@timestamp": 1000,
+    "cicd-pipeline": 1000,
+    "k8s_image": 1000,
+    "k8s_container": 1000,
+    "time": 991,
+    "message": 730,
+    "level": 727,
+    "correlationId": 613,
+    "environment": 541,
+    "thread_name": 541,
+    "application_id": 541,
+    "logger_name": 541,
+    "turnId": 501,
+    "conversationId": 497,
+    "channelId": 497,
+    "tenant": 497,
+    "source_intent": 474,
+    "vaspConnId": 474,
+    "referrerId": 457,
+    "featureId": 438,
+    "step": 434,
+    "languageModel": 425,
+    "spanId": 345,
+    "traceId": 345,
+    "method": 280,
+    "duration": 275,
+    "downstream_remote_address": 270,
+    "upstream_host": 270,
+    "upstream_cluster": 270,
+    "response_code": 270,
+    "downstream_local_address": 270,
+    "response_flags": 270,
+    "bytes_sent": 270,
+    "bytes_received": 270,
+    "upstream_local_address": 266,
+    "path": 260,
+    "authority": 255,
+    "request_id": 255,
+    "user_agent": 255,
+    "protocol": 255,
+    "response_code_details": 255,
+    "route_name": 252,
+    "upstream_service_time": 228,
+    "file": 180
+  }
+}

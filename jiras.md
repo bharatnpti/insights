@@ -164,19 +164,19 @@ Create a machine learning system to classify user queries into predefined analys
 **Priority**: High  
 **Story Points**: 13  
 **Components**: Backend, Query Engine  
-**Dependencies**: NLAP-004, NLAP-005
+**Dependencies**: NLAP-004
 
 **Description**:
 Build an intelligent query builder that converts parsed natural language requirements into optimized OpenSearch queries.
 
 **Acceptance Criteria**:
-- [ ] Generate complex bool queries with multiple conditions
-- [ ] Handle date range queries with proper formatting
-- [ ] Create aggregation queries for statistical analysis
-- [ ] Support nested queries for complex data structures
-- [ ] Optimize queries for performance
-- [ ] Handle pagination for large result sets
-- [ ] Generate queries with proper error handling
+- [x] Generate complex bool queries with multiple conditions
+- [x] Handle date range queries with proper formatting
+- [x] Create aggregation queries for statistical analysis
+- [x] Support nested queries for complex data structures
+- [x] Optimize queries for performance
+- [x] Handle pagination for large result sets
+- [x] Generate queries with proper error handling
 
 **Query Types Supported**:
 - Term queries

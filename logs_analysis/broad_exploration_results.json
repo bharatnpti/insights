@@ -1,0 +1,2015 @@
+{
+  "timestamp": "2025-10-31T01:03:32.799277",
+  "co_occurrences": {
+    "ab_experiment_variant + response_status": 0,
+    "ab_experiment_variant + conversationId": 10000,
+    "ab_experiment_variant + turnId": 10000,
+    "ab_experiment_variant + event": 10000,
+    "ab_experiment_variant + markedForAgentHandover": 0,
+    "ab_experiment_variant + markedResolved": 0,
+    "response_status + conversationId": 10000,
+    "response_status + turnId": 10000,
+    "response_status + event": 10000,
+    "response_status + markedForAgentHandover": 0,
+    "response_status + markedResolved": 0,
+    "conversationId + turnId": 10000,
+    "conversationId + event": 10000,
+    "conversationId + markedForAgentHandover": 10000,
+    "conversationId + markedResolved": 10000,
+    "turnId + event": 10000,
+    "turnId + markedForAgentHandover": 10000,
+    "turnId + markedResolved": 10000,
+    "event + markedForAgentHandover": 10000,
+    "event + markedResolved": 10000,
+    "markedForAgentHandover + markedResolved": 0
+  },
+  "nested_structures": [],
+  "event_sequences": [
+    {
+      "conversationId": "e3d049ec-ebb0-4365-87f5-5259f474ecbb",
+      "event_sequence": [],
+      "unique_events": [],
+      "turn_count": 0
+    }
+  ],
+  "performance_metrics": {
+    "responseTime": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "1.043574428s",
+          2
+        ],
+        [
+          "1.105591357s",
+          2
+        ],
+        [
+          "1.252318325s",
+          2
+        ],
+        [
+          "1.262646212s",
+          2
+        ],
+        [
+          "1.391202240s",
+          2
+        ]
+      ]
+    },
+    "responseTimeInMs": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "272",
+          786
+        ],
+        [
+          "274",
+          760
+        ],
+        [
+          "268",
+          746
+        ],
+        [
+          "261",
+          741
+        ],
+        [
+          "262",
+          729
+        ]
+      ]
+    },
+    "duration": {
+      "count": 5041964,
+      "min": 0.0,
+      "max": 228668215.0,
+      "avg": 21112.639747923626,
+      "p50": 14.0,
+      "p75": 71.59106405552146,
+      "p90": 1163.6520559490473,
+      "p95": 1547.5749965004002,
+      "p99": 124923.42534018011
+    },
+    "upstream_service_time": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "10",
+          417197
+        ],
+        [
+          "11",
+          412386
+        ],
+        [
+          "12",
+          255872
+        ],
+        [
+          "2",
+          214874
+        ],
+        [
+          "13",
+          200825
+        ]
+      ]
+    },
+    "totalTokens": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "239",
+          2348
+        ],
+        [
+          "838",
+          2302
+        ],
+        [
+          "231",
+          2026
+        ],
+        [
+          "241",
+          2026
+        ],
+        [
+          "638",
+          2006
+        ]
+      ]
+    },
+    "completionTokens": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "39",
+          91989
+        ],
+        [
+          "11",
+          58793
+        ],
+        [
+          "3",
+          32126
+        ],
+        [
+          "4",
+          23580
+        ],
+        [
+          "12",
+          14506
+        ]
+      ]
+    },
+    "promptTokens": {
+      "type": "string",
+      "unique_values": 20,
+      "top_values": [
+        [
+          "228",
+          2329
+        ],
+        [
+          "835",
+          2326
+        ],
+        [
+          "229",
+          2237
+        ],
+        [
+          "225",
+          2180
+        ],
+        [
+          "209",
+          2096
+        ]
+      ]
+    }
+  },
+  "error_patterns": {
+    "authTechnicalError": {
+      "sample_values": [
+        "false"
+      ],
+      "event_types": [
+        "unknown",
+        "LLM_COMPLETED"
+      ]
+    },
+    "errorType": {
+      "sample_values": [
+        "PermissionDeniedException"
+      ],
+      "event_types": [
+        "unknown"
+      ]
+    },
+    "errorMessage": {
+      "sample_values": [
+        "Forbidden"
+      ],
+      "event_types": [
+        "unknown"
+      ]
+    }
+  },
+  "service_interactions": {
+    "ia-platform": {
+      "total_events": 14608025,
+      "event_types": [
+        "LLM_STARTED",
+        "LLM_COMPLETED",
+        "CHAT_REQUEST_PROCESSING_STARTED",
+        "RESPONSE_RETURNED",
+        "RECEIVED_CHAT_MESSAGE",
+        "RESPONSE_GENERATION_COMPLETED",
+        "TRANSCRIPT_PREPARED",
+        "USER_PROFILE_UPDATED",
+        "INTENT_DETECTION_COMPLETED",
+        "BLACKLIST_CHECKED"
+      ],
+      "containers": [
+        "ia-platform",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "anonymization-service": {
+      "total_events": 4019699,
+      "event_types": [],
+      "containers": [
+        "istio-proxy",
+        "anonymization-service",
+        "istio-validation"
+      ]
+    },
+    "search-service": {
+      "total_events": 1646335,
+      "event_types": [],
+      "containers": [
+        "search-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "contract-agent-service": {
+      "total_events": 474210,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALL_COMPLETED",
+        "FUNCTION_CALLED",
+        "SMS_ACCEPTED",
+        "SMS_SEND_INITIATED"
+      ],
+      "containers": [
+        "contract-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "flexcard-agent-service": {
+      "total_events": 423222,
+      "event_types": [
+        "LLM_COMPLETED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "flexcard-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "invoice-agent-service": {
+      "total_events": 361707,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "invoice-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "oneai-chat-bff": {
+      "total_events": 326406,
+      "event_types": [],
+      "containers": [
+        "oneai-chat-bff",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "ivr-billing-agent-service": {
+      "total_events": 242128,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED",
+        "SMS_ACCEPTED",
+        "SMS_SEND_INITIATED"
+      ],
+      "containers": [
+        "ivr-billing-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "order-agent-service": {
+      "total_events": 226402,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "order-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "sim-agent-service": {
+      "total_events": 204927,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "sim-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "tks-agent-service": {
+      "total_events": 195025,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALL_COMPLETED",
+        "FUNCTION_CALLED"
+      ],
+      "containers": [
+        "tks-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "search-service-beta": {
+      "total_events": 192582,
+      "event_types": [],
+      "containers": [
+        "search-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "sales-retention-agent-service": {
+      "total_events": 143966,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "sales-retention-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "contract-cancel-agent-service": {
+      "total_events": 123408,
+      "event_types": [
+        "LLM_COMPLETED",
+        "MEMORY_STORE_EVENT",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "contract-cancel-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "sales-acquisition-agent-service": {
+      "total_events": 88420,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "sales-acquisition-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "options-agent-service": {
+      "total_events": 64410,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "options-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "device-agent-service": {
+      "total_events": 57419,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "device-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "supervisor": {
+      "total_events": 52210,
+      "event_types": [],
+      "containers": [
+        "supervisor",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "email-agent-service": {
+      "total_events": 47247,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "email-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "password-agent-service": {
+      "total_events": 46066,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED"
+      ],
+      "containers": [
+        "password-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "contact-agent-service": {
+      "total_events": 39792,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED"
+      ],
+      "containers": [
+        "contact-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "magentatv-migration-agent-service": {
+      "total_events": 39237,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "ANSWER_EVALUATION_COMPLETED"
+      ],
+      "containers": [
+        "magentatv-migration-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "ia-platform-beta": {
+      "total_events": 34378,
+      "event_types": [
+        "RESPONSE_RETURNED",
+        "RECEIVED_CHAT_MESSAGE",
+        "CHAT_REQUEST_PROCESSING_STARTED",
+        "TRANSCRIPT_PREPARED",
+        "RESPONSE_GENERATION_COMPLETED",
+        "EXECUTION_TYPE",
+        "AB_EXPERIMENT_RETRIEVED",
+        "LLM_STARTED",
+        "LLM_COMPLETED",
+        "SUPERVISOR_FLOW_INITIATED"
+      ],
+      "containers": [
+        "ia-platform",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "prepaid-agent-service": {
+      "total_events": 20407,
+      "event_types": [],
+      "containers": [
+        "prepaid-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "voice-supervisor-application": {
+      "total_events": 19717,
+      "event_types": [],
+      "containers": [
+        "istio-proxy",
+        "voice-supervisor-application"
+      ]
+    },
+    "appointment-agent-service": {
+      "total_events": 16347,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED"
+      ],
+      "containers": [
+        "appointment-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "supervisor-beta": {
+      "total_events": 12788,
+      "event_types": [],
+      "containers": [
+        "supervisor",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "contract-agent-service-beta": {
+      "total_events": 11390,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALL_COMPLETED",
+        "FUNCTION_CALLED",
+        "SMS_ACCEPTED",
+        "SMS_SEND_INITIATED"
+      ],
+      "containers": [
+        "contract-agent-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "channel-integration-service": {
+      "total_events": 10631,
+      "event_types": [
+        "transaction",
+        "conversation_end",
+        "conversation_init"
+      ],
+      "containers": [
+        "channel-integration-service",
+        "istio-proxy",
+        "istio-validation"
+      ]
+    },
+    "ivr-billing-agent-service-beta": {
+      "total_events": 8484,
+      "event_types": [
+        "MEMORY_STORE_EVENT",
+        "LLM_COMPLETED",
+        "USECASE_PROMPT_IDENTIFIED",
+        "FUNCTION_CALLED",
+        "FUNCTION_CALL_COMPLETED",
+        "SMS_ACCEPTED",
+        "SMS_SEND_INITIATED"
+      ],
+      "containers": [
+        "istio-proxy",
+        "ivr-billing-agent-service",
+        "istio-validation"
+      ]
+    }
+  },
+  "user_interactions": {
+    "channelId": {
+      "unique_values": 7,
+      "top_values": [
+        [
+          "ONEAPP",
+          7424418
+        ],
+        [
+          "ONEAPPWEB",
+          4141383
+        ],
+        [
+          "WHATSAPP",
+          2114897
+        ],
+        [
+          "IVR",
+          664577
+        ],
+        [
+          "APPLE_BUSINESS_CHAT",
+          974
+        ],
+        [
+          "app",
+          22
+        ],
+        [
+          "web",
+          4
+        ]
+      ]
+    },
+    "source_intent": {
+      "unique_values": 20,
+      "top_values": [
+        [
+          "nlu_fallback",
+          4532381
+        ],
+        [
+          "greet",
+          771865
+        ],
+        [
+          "",
+          680423
+        ],
+        [
+          "rechnung",
+          274953
+        ],
+        [
+          "inform",
+          270237
+        ],
+        [
+          "tks_stoerung",
+          234493
+        ],
+        [
+          "vertrag_verlaengern",
+          233051
+        ],
+        [
+          "vertrag_info",
+          190610
+        ],
+        [
+          "vertrag_beenden",
+          183257
+        ],
+        [
+          "rechnung_dokumente.einsehen_rechnung",
+          176024
+        ]
+      ]
+    },
+    "detectedIntent": {
+      "unique_values": 7,
+      "top_values": [
+        [
+          "unknown",
+          22909
+        ],
+        [
+          "order_management",
+          5731
+        ],
+        [
+          "sim-operations",
+          4766
+        ],
+        [
+          "invoice_issues",
+          4647
+        ],
+        [
+          "contract_management",
+          3664
+        ],
+        [
+          "magenta_tv_issues",
+          3305
+        ],
+        [
+          "qr_code_support",
+          548
+        ]
+      ]
+    },
+    "languageModel": {
+      "unique_values": 8,
+      "top_values": [
+        [
+          "GPT-4o-mini",
+          9504405
+        ],
+        [
+          "guardrails-gpt-4o",
+          438117
+        ],
+        [
+          "guardrails-GPT-4o-mini-no-contentfilter-json",
+          292378
+        ],
+        [
+          "guardrails-GPT-4o-mini",
+          269630
+        ],
+        [
+          "GPT-4o-mini-no-contentfilter-json",
+          91586
+        ],
+        [
+          "gpt-4o",
+          68118
+        ],
+        [
+          "guardrails-GPT-4o-mini-no-contentfilter",
+          20907
+        ],
+        [
+          "GPT-4o-mini-no-contentfilter",
+          2317
+        ]
+      ]
+    },
+    "tenant": {
+      "unique_values": 5,
+      "top_values": [
+        [
+          "de",
+          13348475
+        ],
+        [
+          "at",
+          965770
+        ],
+        [
+          "hr",
+          60776
+        ],
+        [
+          "cz",
+          20925
+        ],
+        [
+          "",
+          168
+        ]
+      ]
+    }
+  },
+  "agent_patterns": {
+    "agents": {
+      "FAQAgent": {
+        "count": 2282109,
+        "top_steps": [
+          "ClassifyAndRephraseRequest",
+          "SearchServiceContextRetriever",
+          "GenerateResponse",
+          "MultiSearchQueryRephraseStep",
+          "FilterRequest",
+          "FAQAgent",
+          "ContextInitializer",
+          "FilterResponse",
+          "PhoneWhitelisting",
+          "URLWhitelisting"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "greet",
+          "bye",
+          "inform",
+          "vertrag_sonstige_beschwerde",
+          "tks_stoerung",
+          "geraeteservice_retoure",
+          "rechnung_zahlungsart_aendern",
+          "rechnung_zu_hoch",
+          "rechnung_dokumente.einsehen_rechnung"
+        ]
+      },
+      "contract-agent-service": {
+        "count": 460068,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "InstructionLeakingOutputFilter",
+          "AgentDAGExecutor",
+          "RephraseInstructions",
+          "HandleHandoverSolution",
+          "SmsDeclined",
+          "UseDeFormalTone",
+          "HallucinationDetector"
+        ],
+        "top_intents": [
+          "",
+          "vertrag_info",
+          "vertrag_info_ausland",
+          "nlu_fallback",
+          "vertrag_laufzeit",
+          "vertraege_verknuepfen",
+          "magenta_tv_nutzung",
+          "vertrag_bestaetigung_fehlt_oder_falsch",
+          "vertrag_beschwerde_aenderung_funktioniert_nicht",
+          "vertrag_aendern"
+        ]
+      },
+      "invoice-agent-service": {
+        "count": 361361,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "InstructionLeakingOutputFilter",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "ToFlexCardsFilter",
+          "HallucinationDetector"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "rechnung_zu_hoch",
+          "rechnung_dokumente.einsehen_rechnung",
+          "rechnung_bankverbindung_aendern",
+          "",
+          "rechnung_start",
+          "rechnung_kontostand",
+          "inform",
+          "greet",
+          "rechnung_zahlungsaufschub"
+        ]
+      },
+      "order-agent-service": {
+        "count": 232687,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "HallucinationDetector",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "lieferstatus_mobilfunk",
+          "auftragsstatus_unspezifisch",
+          "auftrag_widerruf",
+          "lieferstatus_festnetz",
+          "greet",
+          "auftrag_umzug_unklar",
+          "auftragsstatus_glasfaser",
+          "auftrag_umzug",
+          "auftragsstatus_festnetz"
+        ]
+      },
+      "ivr-billing-agent-service": {
+        "count": 218806,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "AgentDAGExecutor",
+          "AgentUnresolvedDetector",
+          "DeanonymizeInput",
+          "SmsDeclined",
+          "InstructionLeakingOutputFilter",
+          "HallucinationDetector",
+          "HallucinatedAnonymizationDetector",
+          "LimitSubsequentUseCaseFilter"
+        ],
+        "top_intents": [
+          "rechnung",
+          "rechnung_mobilfunk",
+          "bezahlung",
+          "payment",
+          "zahlungsprobleme",
+          "iban_aendern",
+          "rechnung_problem",
+          "rechnung_festnetz",
+          "rechnung_falsch",
+          "rechnung_telefon"
+        ]
+      },
+      "sim-agent-service": {
+        "count": 206273,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "UseDeFormalTone",
+          "LimitUseCaseFilter",
+          "HallucinationDetector",
+          "InstructionLeakingOutputFilter",
+          "RephraseInstructions",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "",
+          "sim_aktivieren",
+          "sim_neu_esim",
+          "puk_vergessen",
+          "pin_magentatv_vergessen",
+          "sim_defekt",
+          "greet",
+          "sim_esim_uebertragen",
+          "esim_qr_funktioniert_nicht"
+        ]
+      },
+      "tks-agent-service": {
+        "count": 185076,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "ServiceIssueClassifier",
+          "GenerateFlexCards",
+          "HallucinationDetector",
+          "RephraseInstructions",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "tks_stoerung",
+          "",
+          "tks_stoerung_fernsehen",
+          "tks_stoerung_abbruch",
+          "tks_stoerung_langsam",
+          "nlu_fallback",
+          "tks_anfrage_regio_stoerung",
+          "tks_stoerung_mobilfunk",
+          "inform",
+          "greet"
+        ]
+      },
+      "sales-retention-agent-service": {
+        "count": 145273,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "UseDeFormalTone",
+          "RephraseInstructions",
+          "HallucinationDetector",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "vertrag_verlaengern",
+          "auftrag_tarifwechsel",
+          "nlu_fallback",
+          "vertrag_verlaengern_neues_handy",
+          "auftrag_tarifwechsel_prepaid",
+          "auftrag_tarifwechsel_mf",
+          "vertrag_verlaengern_ohne_handy",
+          "greet",
+          "auftrag_tarifwechsel_schnelleres_internet_festnetz",
+          "vertrag_neu"
+        ]
+      },
+      "contract-cancel-agent-service": {
+        "count": 122766,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "ResponseHelper",
+          "InputHintProvider",
+          "HandleHandoverSolution",
+          "RephraseInstructions",
+          "LimitUseCaseFilter",
+          "HallucinationDetector",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "vertrag_beenden",
+          "kuendigen_unspezifisch",
+          "vertrag_anfrage_kuendigungstermin",
+          "vertrag_tv_optionen_kuendigen",
+          "greet",
+          "vertrag_zubuchoptionen_kuendigen",
+          "vertrag_kuendigen_umzug",
+          "kuendigung_anbieterwechsel_rufnummer",
+          "magentatv_beenden"
+        ]
+      },
+      "flexcard-agent-service": {
+        "count": 87909,
+        "top_steps": [
+          "GenerateFlexCards",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "inform",
+          "greet",
+          "vertrag_beenden",
+          "vertrag_verlaengern",
+          "rechnung_dokumente.einsehen_rechnung",
+          "vertrag_info_ausland",
+          "vertrag_info",
+          "rechnung_zu_hoch",
+          "auftragsstatus_unspezifisch"
+        ]
+      },
+      "sales-acquisition-agent-service": {
+        "count": 85645,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "HallucinationDetector",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "rechnung_ratenzahlung",
+          "auftrag_angebote",
+          "auftrag_neuvertrag_abschliessen",
+          "kuendigung_anbieterwechsel_rufnummer",
+          "nlu_fallback",
+          "auftrag_anbieterwechsel_nachfrage",
+          "auftrag_neues_geraet_erhalten",
+          "auftrag_cashback_erhalten",
+          "magenta_tv_info",
+          "auftrag_anbieterwechsel_import_bestellen"
+        ]
+      },
+      "options-agent-service": {
+        "count": 59354,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "UseDeFormalTone",
+          "RephraseInstructions",
+          "HallucinationDetector",
+          "InstructionLeakingOutputFilter",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "vertrag_datenvolumen.stand",
+          "vertrag_datenvolumen.buchen_zeitraum_unbekannt",
+          "vertrag_problem_datenvolumen",
+          "nlu_fallback",
+          "auftrag_angebote_pluskarte",
+          "auftrag_rufnummerntausch",
+          "vertrag_zubuchoption_buchen",
+          "auftrag_bestellen_magentaeins",
+          "vertrag_datenvolumen.buchen_dayflat",
+          "vertrag_info_ausland"
+        ]
+      },
+      "device-agent-service": {
+        "count": 53960,
+        "top_steps": [
+          "UseCaseResponseHandler",
+          "LmosAgent",
+          "GenerateFlexCards",
+          "ResponseHelper",
+          "InputHintProvider",
+          "HallucinationDetector",
+          "LimitUseCaseFilter",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "geraeteservice_retoure",
+          "geraeteservice_defekt",
+          "nlu_fallback",
+          "router_einrichten",
+          "geraeteservice_tauschen",
+          "geraeteservice_kuendigung",
+          "problem_mobilfunk_geraet",
+          "geraeteservice_widerruf",
+          "wlan_konfigurieren",
+          "greet"
+        ]
+      },
+      "FAQAgentHR": {
+        "count": 49722,
+        "top_steps": [
+          "SearchServiceContextRetriever",
+          "ClassifyAndRephraseRequestHR",
+          "GenerateResponseHR",
+          "MultiSearchQueryRephraseStep",
+          "PlatformLLMSelfEvaluatorHR",
+          "FilterRequest",
+          "FAQAgentHR",
+          "ContextInitializerHR",
+          "FilterResponse",
+          "WhitelistURLRestore"
+        ],
+        "top_intents": []
+      },
+      "email-agent-service": {
+        "count": 44823,
+        "top_steps": [
+          "UseCaseResponseHandler",
+          "LmosAgent",
+          "ExtractUserData",
+          "GenerateFlexCards",
+          "LimitUseCaseFilter",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "HallucinationDetector",
+          "MissingToolInvocationInputFilter",
+          "MissingToolInvocationOutputFilter"
+        ],
+        "top_intents": [
+          "email_kein_zugriff",
+          "nlu_fallback",
+          "email_gehackt",
+          "vertrag_email_adresse_aendern",
+          "email_problem",
+          "vertrag_email_loeschen",
+          "email_fake",
+          "email_konto_anlegen",
+          "email_kein_empfang",
+          "e_mail_adresse_bestaetigen"
+        ]
+      },
+      "": {
+        "count": 43880,
+        "top_steps": [
+          "LmosAgent"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "greet",
+          "inform",
+          "vertrag_beenden",
+          "vertrag_verlaengern",
+          "rechnung_dokumente.einsehen_rechnung",
+          "vertrag_info",
+          "vertrag_info_ausland",
+          "rechnung_zu_hoch",
+          "rechnung_bankverbindung_aendern"
+        ]
+      },
+      "password-agent-service": {
+        "count": 42140,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "LimitUseCaseFilter",
+          "RephraseInstructions",
+          "UseDeFormalTone",
+          "HallucinationDetector"
+        ],
+        "top_intents": [
+          "login_funktioniert_nicht",
+          "nlu_fallback",
+          "zugangsdaten_vergessen_verloren",
+          "passwort_vergessen_verloren",
+          "einloggen_login_unspezifisch",
+          "passwort_email_verwalten",
+          "kc_zugangsdaten_fehlen_vergessen_verloren",
+          "zugangsdaten_nicht_erhalten",
+          "einloggen_login_kundencenter",
+          "passwort_aendern"
+        ]
+      },
+      "magentatv-migration-agent-service": {
+        "count": 41122,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "ViolationDetectionFilter",
+          "LimitUseCaseFilter",
+          "HallucinationDetector",
+          "RephraseInstructions",
+          "ToFlexCardsFilter",
+          "UseDeFormalTone"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "greet",
+          "vertrag_sonstige_beschwerde",
+          "inform",
+          "auftragsstatus_festnetz",
+          "magenta_tv_info",
+          "router_einrichten",
+          "auftrag_tarifwechsel",
+          "magenta_tv_nutzung",
+          "aendern_unspezifisch"
+        ]
+      },
+      "contact-agent-service": {
+        "count": 35076,
+        "top_steps": [
+          "UseCaseResponseHandler",
+          "LmosAgent",
+          "GenerateFlexCards",
+          "UseDeFormalTone",
+          "LimitUseCaseFilter",
+          "HallucinationDetector"
+        ],
+        "top_intents": [
+          "ask_callback",
+          "kontakt_telekom",
+          "beschwerde_mitarbeiter_und_allgemein",
+          "nlu_fallback",
+          "kontakt_email_telekom",
+          "greet",
+          "kontakt_telekom_upload",
+          "inform",
+          "anliegen_ungeloest",
+          "problem_unspezifisch"
+        ]
+      },
+      "appointment-agent-service": {
+        "count": 13520,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards",
+          "RephraseInstructions",
+          "HallucinationDetector"
+        ],
+        "top_intents": [
+          "tks_techniker_ankunft",
+          "tks_techniker_verschieben",
+          "tks_techniker_nicht_gekommen",
+          "nlu_fallback",
+          "tks_techniker_absagen",
+          "tks_technikertermin",
+          "tks_techniker_anfordern",
+          "termin_unspezifisch",
+          "termin_absagen_unspezifisch",
+          "termin_verschieben_unspezifisch"
+        ]
+      },
+      "contract-agent-service-beta": {
+        "count": 8432,
+        "top_steps": [
+          "LmosAgent",
+          "AgentDAGExecutor",
+          "UseCaseResponseHandler",
+          "InstructionLeakingOutputFilter",
+          "HandleHandoverSolution",
+          "GenerateFlexCards",
+          "RephraseInstructions"
+        ],
+        "top_intents": [
+          "vertrag",
+          "telefonnummer",
+          "rechnung",
+          "roaming",
+          "magentatv_einrichtung",
+          "adresse_aendern",
+          "sperre",
+          "rufumleitung_aktivieren",
+          "anbietersperre",
+          "vertrag_information"
+        ]
+      },
+      "prepaid-agent-service": {
+        "count": 2817,
+        "top_steps": [
+          "GenerateFlexCards",
+          "LmosAgent",
+          "ToFlexCardsFilter"
+        ],
+        "top_intents": [
+          "prepaid_guthaben_aufladen",
+          "prepaid_guthaben_abfrage",
+          "prepaid_aufladen_nicht_moeglich",
+          "prepaid_jahrestarif_aufladen",
+          "prepaid_guthaben_verschwunden",
+          "nlu_fallback"
+        ]
+      },
+      "ivr-billing-agent-service-beta": {
+        "count": 2028,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "AgentDAGExecutor",
+          "AgentUnresolvedDetector",
+          "DeanonymizeInput",
+          "LimitSubsequentUseCaseFilter"
+        ],
+        "top_intents": [
+          "rechnung",
+          "sperre",
+          "rechnung_mobilfunk",
+          "bezahlung_problem",
+          "mahnung"
+        ]
+      },
+      "sales-retention-agent-service-beta": {
+        "count": 1503,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards"
+        ],
+        "top_intents": [
+          "auftrag_tarifwechsel_schnelleres_internet_festnetz",
+          "auftrag_tarifwechsel",
+          "vertrag_verlaengerung",
+          "vertrag_verlaengerung_mit_handy"
+        ]
+      },
+      "contract-cancel-agent-service-beta": {
+        "count": 270,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "LimitUseCaseFilter",
+          "ResponseHelper",
+          "InputHintProvider"
+        ],
+        "top_intents": [
+          "kuendigungsfrist",
+          "kuendigung_problem"
+        ]
+      },
+      "tks-agent-service-beta": {
+        "count": 102,
+        "top_steps": [
+          "LmosAgent",
+          "ServiceIssueClassifier",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards"
+        ],
+        "top_intents": [
+          "tks_stoerung"
+        ]
+      },
+      "puk_vergessen_pk": {
+        "count": 32,
+        "top_steps": [
+          "LmosAgent"
+        ],
+        "top_intents": [
+          "pin_sim_vergessen",
+          "puk_vergessen",
+          "pin_vergessen",
+          "nlu_fallback",
+          "pin_magentatv_vergessen"
+        ]
+      },
+      "order-agent-service-beta": {
+        "count": 26,
+        "top_steps": [
+          "LmosAgent",
+          "UseCaseResponseHandler",
+          "GenerateFlexCards"
+        ],
+        "top_intents": [
+          "auftragsstatus_sim"
+        ]
+      },
+      "PUK_VERGESSEN_PK": {
+        "count": 8,
+        "top_steps": [
+          "LmosAgent"
+        ],
+        "top_intents": [
+          "pin_vergessen",
+          "pin_sim_vergessen",
+          "inform",
+          "pin_sim_aendern",
+          "puk_vergessen"
+        ]
+      },
+      "esim_qr_code_funktioniert_nicht": {
+        "count": 8,
+        "top_steps": [
+          "LmosAgent"
+        ],
+        "top_intents": [
+          "nlu_fallback",
+          "sim_defekt",
+          "esim_qr_funktioniert_nicht",
+          "sim_aktivieren",
+          "sim_neu_esim"
+        ]
+      }
+    },
+    "classifier_agents": [
+      {
+        "agent": "none",
+        "count": 57878
+      },
+      {
+        "agent": "contract-agent-service",
+        "count": 12128
+      },
+      {
+        "agent": "invoice-agent-service",
+        "count": 11004
+      },
+      {
+        "agent": "order-agent-service",
+        "count": 7868
+      },
+      {
+        "agent": "contract-cancel-agent-service",
+        "count": 7095
+      },
+      {
+        "agent": "sales-retention-agent-service",
+        "count": 5270
+      },
+      {
+        "agent": "sim-agent-service",
+        "count": 5212
+      },
+      {
+        "agent": "password-agent-service",
+        "count": 4234
+      },
+      {
+        "agent": "device-agent-service",
+        "count": 4022
+      },
+      {
+        "agent": "sales-acquisition-agent-service",
+        "count": 3160
+      },
+      {
+        "agent": "contact-agent-service",
+        "count": 3022
+      },
+      {
+        "agent": "options-agent-service",
+        "count": 2995
+      },
+      {
+        "agent": "tks-agent-service",
+        "count": 2023
+      },
+      {
+        "agent": "email-agent-service",
+        "count": 1978
+      },
+      {
+        "agent": "prepaid-agent-service",
+        "count": 1486
+      },
+      {
+        "agent": "appointment-agent-service",
+        "count": 1150
+      },
+      {
+        "agent": "magentatv-migration-agent-service",
+        "count": 340
+      }
+    ]
+  },
+  "function_patterns": {
+    "format_question": {
+      "count": 109039,
+      "statuses": {
+        "SUCESS": 54520
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "callHandlers": {
+      "count": 14528,
+      "statuses": {},
+      "phases": []
+    },
+    "execute_compilation_pipeline": {
+      "count": 12420,
+      "statuses": {},
+      "phases": []
+    },
+    "format_bills": {
+      "count": 11010,
+      "statuses": {
+        "SUCESS": 5505
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "viewBill": {
+      "count": 7724,
+      "statuses": {
+        "SUCESS": 2809,
+        "FAILED": 1053
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "format_contract_sales": {
+      "count": 7182,
+      "statuses": {
+        "SUCESS": 3591
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "check_user_details": {
+      "count": 5586,
+      "statuses": {
+        "SUCESS": 1454,
+        "FAILED": 1338
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "format_order_status": {
+      "count": 4516,
+      "statuses": {
+        "SUCESS": 2258
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "view_eligible_prolongation_contracts": {
+      "count": 3960,
+      "statuses": {
+        "SUCESS": 1980
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "agent_handover": {
+      "count": 3785,
+      "statuses": {
+        "SUCESS": 1893
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "fetch_agents": {
+      "count": 3662,
+      "statuses": {},
+      "phases": []
+    },
+    "contract_details": {
+      "count": 3473,
+      "statuses": {
+        "SUCESS": 1196,
+        "FAILED": 540
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "format_shipment_status": {
+      "count": 3200,
+      "statuses": {
+        "SUCESS": 1600
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "view_bill_and_account_information": {
+      "count": 2707,
+      "statuses": {
+        "SUCESS": 1253,
+        "FAILED": 100
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "contract_cancellation_dates": {
+      "count": 2690,
+      "statuses": {
+        "SUCESS": 1042,
+        "FAILED": 303
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "__init__": {
+      "count": 2452,
+      "statuses": {},
+      "phases": []
+    },
+    "_fetch_routing_information": {
+      "count": 2448,
+      "statuses": {},
+      "phases": []
+    },
+    "get_structured_llm_response": {
+      "count": 2438,
+      "statuses": {},
+      "phases": []
+    },
+    "order_shipment_status": {
+      "count": 2418,
+      "statuses": {
+        "SUCESS": 1207,
+        "FAILED": 2
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "get_products": {
+      "count": 2014,
+      "statuses": {
+        "SUCESS": 727,
+        "FAILED": 279
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "start_diagnose": {
+      "count": 1900,
+      "statuses": {
+        "SUCESS": 937,
+        "FAILED": 13
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "get_sim_card_information": {
+      "count": 1886,
+      "statuses": {
+        "SUCESS": 623,
+        "FAILED": 320
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "get_routing_information": {
+      "count": 1720,
+      "statuses": {},
+      "phases": []
+    },
+    "reassign": {
+      "count": 1678,
+      "statuses": {
+        "FAILED": 839
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "view_eligible_tariff_change_contracts": {
+      "count": 1660,
+      "statuses": {
+        "SUCESS": 691,
+        "FAILED": 139
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "viewAccountBalance": {
+      "count": 1525,
+      "statuses": {
+        "SUCESS": 554,
+        "FAILED": 208
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "view_data_consumption_details": {
+      "count": 1464,
+      "statuses": {
+        "SUCESS": 630,
+        "FAILED": 102
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "order_status": {
+      "count": 1408,
+      "statuses": {
+        "SUCESS": 703,
+        "FAILED": 1
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "shipment_number_details": {
+      "count": 1302,
+      "statuses": {
+        "SUCESS": 651
+      },
+      "phases": [
+        "Generating"
+      ]
+    },
+    "log_request_headers": {
+      "count": 1226,
+      "statuses": {},
+      "phases": []
+    }
+  },
+  "intent_patterns": {
+    "source_intent": {
+      "unique_values": 30,
+      "top_values": [
+        [
+          "nlu_fallback",
+          4532271
+        ],
+        [
+          "greet",
+          771803
+        ],
+        [
+          "",
+          680419
+        ],
+        [
+          "rechnung",
+          274953
+        ],
+        [
+          "inform",
+          270237
+        ],
+        [
+          "tks_stoerung",
+          234497
+        ],
+        [
+          "vertrag_verlaengern",
+          233051
+        ],
+        [
+          "vertrag_info",
+          190610
+        ],
+        [
+          "vertrag_beenden",
+          183241
+        ],
+        [
+          "rechnung_dokumente.einsehen_rechnung",
+          176024
+        ],
+        [
+          "vertrag_info_ausland",
+          165477
+        ],
+        [
+          "rechnung_zu_hoch",
+          155959
+        ],
+        [
+          "vertrag_sonstige_beschwerde",
+          140971
+        ],
+        [
+          "bye",
+          118803
+        ],
+        [
+          "rechnung_bankverbindung_aendern",
+          110901
+        ]
+      ]
+    },
+    "detectedIntent": {
+      "unique_values": 7,
+      "top_values": [
+        [
+          "unknown",
+          22909
+        ],
+        [
+          "order_management",
+          5731
+        ],
+        [
+          "sim-operations",
+          4766
+        ],
+        [
+          "invoice_issues",
+          4647
+        ],
+        [
+          "contract_management",
+          3664
+        ],
+        [
+          "magenta_tv_issues",
+          3304
+        ],
+        [
+          "qr_code_support",
+          548
+        ]
+      ]
+    },
+    "explicitIntent": {
+      "unique_values": 1,
+      "top_values": [
+        [
+          "unknown",
+          45570
+        ]
+      ]
+    },
+    "category": {
+      "unique_values": 30,
+      "top_values": [
+        [
+          "unknown",
+          23653
+        ],
+        [
+          "contract_management",
+          12426
+        ],
+        [
+          "invoice_issues",
+          8128
+        ],
+        [
+          "sim-operations",
+          7668
+        ],
+        [
+          "order_management",
+          6080
+        ],
+        [
+          "agent_handover_requested",
+          4169
+        ],
+        [
+          "magenta_tv_issues",
+          3577
+        ],
+        [
+          "technical_support",
+          3208
+        ],
+        [
+          "points_hearts_request",
+          2075
+        ],
+        [
+          "mobile",
+          1158
+        ],
+        [
+          "qr_code_support",
+          654
+        ],
+        [
+          "invoice_issues,contract_management",
+          546
+        ],
+        [
+          "invoice_issues,unknown",
+          481
+        ],
+        [
+          "contract_management,unknown",
+          375
+        ],
+        [
+          "order_management,contract_management",
+          323
+        ]
+      ]
+    },
+    "subCategory": {
+      "unique_values": 30,
+      "top_values": [
+        [
+          "unknown_category",
+          20068
+        ],
+        [
+          "agent_handover",
+          4172
+        ],
+        [
+          "order_delivery_shipment_status",
+          4157
+        ],
+        [
+          "sim_activation",
+          3776
+        ],
+        [
+          "none",
+          3731
+        ],
+        [
+          "contract_management",
+          3487
+        ],
+        [
+          "invoice_details",
+          3404
+        ],
+        [
+          "contract_management_and_inquiries",
+          3228
+        ],
+        [
+          "contract_termination_cancellation",
+          3177
+        ],
+        [
+          "magenta_tv_migration",
+          2454
+        ],
+        [
+          "technician_appointment",
+          2131
+        ],
+        [
+          "points_hearts_request",
+          2075
+        ],
+        [
+          "invoice_management_and_payment",
+          1996
+        ],
+        [
+          "magenta_tv_new_tariffs",
+          1079
+        ],
+        [
+          "bank_and_address_changes",
+          1012
+        ]
+      ]
+    }
+  },
+  "llm_patterns": {}
+}
