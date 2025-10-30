@@ -342,8 +342,10 @@ Be precise and only extract information that is explicitly stated or clearly imp
         # Build aggregations from LLM result
         aggregations = self._build_aggregations(llm_result.get("aggregations", []))
 
-        # Get fields from LLM result
+        # Get fields from LLM result (ensure it's a list)
         fields = llm_result.get("fields", [])
+        if fields is None:
+            fields = []
 
         # Get sort from LLM result
         sort = llm_result.get("sort")
