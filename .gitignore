@@ -28,6 +28,7 @@ venv/
 env/
 ENV/
 .venv
+.test_venv
 env.bak/
 venv.bak/
 
