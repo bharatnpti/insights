@@ -45,7 +45,13 @@ class OpenSearchClusterConfig(BaseModel):
 class OpenSearchSettings(BaseSettings):
     """OpenSearch connection settings."""
 
-    model_config = SettingsConfigDict(env_prefix="OPENSEARCH_", case_sensitive=False)
+    model_config = SettingsConfigDict(
+        env_prefix="OPENSEARCH_",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
 
     host: str = Field(..., description="OpenSearch cluster endpoint")
     port: int = Field(default=9200, description="OpenSearch port")
@@ -65,7 +71,13 @@ class OpenSearchSettings(BaseSettings):
 class AzureOpenAISettings(BaseSettings):
     """Azure OpenAI connection settings."""
 
-    model_config = SettingsConfigDict(env_prefix="AZURE_", case_sensitive=False)
+    model_config = SettingsConfigDict(
+        env_prefix="AZURE_",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
 
     endpoint: str = Field(..., description="Azure OpenAI endpoint URL")
     deployment_name: str = Field(
@@ -79,7 +91,13 @@ class AzureOpenAISettings(BaseSettings):
 class AppSettings(BaseSettings):
     """Application settings."""
 
-    model_config = SettingsConfigDict(env_prefix="", case_sensitive=False)
+    model_config = SettingsConfigDict(
+        env_prefix="",
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
 
     app_name: str = Field(default="NLAP", description="Application name")
     log_level: str = Field(default="INFO", description="Logging level")
@@ -91,7 +109,6 @@ class Settings(BaseSettings):
     """Main application settings."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",

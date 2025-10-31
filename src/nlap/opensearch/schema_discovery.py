@@ -39,7 +39,7 @@ class SchemaDiscoveryEngine:
     async def discover_index_schema(
         self,
         index_name: str,
-        sample_size: Optional[int] = None,
+        sample_size: Optional[int] = 500,
         use_cache: bool = True,
         cache_ttl: Optional[int] = None,
     ) -> SchemaInfo:
