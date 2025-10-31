@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from nlap.api.dependencies import close_clients, initialize_clients
-from nlap.api.routes import health
+from nlap.api.routes import health, query
 from nlap.config.settings import get_settings
 from nlap.utils.logger import bind_request_context, clear_request_context, get_logger, setup_logging
 
@@ -141,6 +141,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Include routers
 app.include_router(health.router)
+app.include_router(query.router)
 
 
 @app.get("/")
