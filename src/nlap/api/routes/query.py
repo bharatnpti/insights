@@ -103,18 +103,120 @@ async def process_query_stream(
             schema_discovery = SchemaDiscoveryEngine(opensearch_manager)
             query_builder = QueryBuilder()
             
-            # Step 2: Parse natural language query
+            # Step 2: Determine which indices to query (needed for schema discovery)
+            # First, do a lightweight parse to extract index names if not provided
+            index_names = request.index_names
+            if not index_names:
+                yield _yield_json_chunk(
+                    "status",
+                    {
+                        "step": "index_discovery",
+                        "message": "Determining target indices from query...",
+                    },
+                )
+                # Do a lightweight parse just to get index names
+                temp_parsed = await parser.parse(
+                    query=request.query,
+                    index_names=None,
+                )
+                index_names = temp_parsed.index_names
+            
+            if not index_names:
+                yield _yield_json_chunk(
+                    "error",
+                    {
+                        "message": "No index names specified or inferred from query",
+                        "original_query": request.query,
+                    },
+                )
+                return
+            
+            # Step 3: Discover schema if enabled (before parsing to enable field validation)
+            schema_info = None
+            if request.discover_fields:
+                yield _yield_json_chunk(
+                    "status",
+                    {
+                        "step": "field_discovery",
+                        "message": f"Discovering schema for indices: {', '.join(index_names)}...",
+                    },
+                )
+                
+                try:
+                    # Discover schema for the first index (can be extended to handle multiple indices)
+                    primary_index = index_names[0] if index_names else None
+                    if primary_index:
+                        # Handle wildcard indices by trying to discover from a specific match
+                        # if "*" in primary_index:
+                        #     # For wildcard indices, we'll skip detailed discovery
+                        #     # but still use what we can infer from the parsed query
+                        #     yield _yield_json_chunk(
+                        #         "status",
+                        #         {
+                        #             "step": "field_discovery",
+                        #             "message": "Wildcard index detected, skipping detailed schema discovery",
+                        #         },
+                        #     )
+                        # else:
+                        schema_info = await schema_discovery.discover_index_schema(
+                            index_name=primary_index,
+                            use_cache=True,
+                        )
+
+                        # Calculate field_count_by_type for all fields
+                        field_count_by_type = {}
+                        if schema_info.fields:
+                            for field_info in schema_info.fields.values():
+                                field_type_value = field_info.field_type.value
+                                field_count_by_type[field_type_value] = (
+                                    field_count_by_type.get(field_type_value, 0) + 1
+                                )
+                        
+                        # Serialize fields dictionary with FieldInfo objects
+                        fields_dict = {
+                            field_name: field_info.model_dump()
+                            for field_name, field_info in schema_info.fields.items()
+                        }
+                        
+                        yield _yield_json_chunk(
+                            "schema_discovered",
+                            {
+                                "schema": {
+                                    "index_name": schema_info.index_name,
+                                    "total_fields": len(schema_info.fields),
+                                    "field_count_by_type": field_count_by_type,
+                                    "fields": fields_dict,
+                                },
+                            },
+                        )
+                except Exception as e:
+                    logger.warning(
+                        "Schema discovery failed, continuing without schema info",
+                        error=str(e),
+                        error_type=type(e).__name__,
+                    )
+                    yield _yield_json_chunk(
+                        "warning",
+                        {
+                            "step": "field_discovery",
+                            "message": f"Schema discovery failed: {str(e)}",
+                        },
+                    )
+            
+            # Step 4: Parse natural language query WITH schema information
             yield _yield_json_chunk(
                 "status",
                 {
                     "step": "parsing",
-                    "message": "Parsing natural language query...",
+                    "message": "Parsing natural language query with schema validation...",
                 },
             )
             
+            # Parse query with schema info for better field validation and mapping
             parsed_query = await parser.parse(
                 query=request.query,
-                index_names=request.index_names,
+                index_names=index_names,
+                schema_info=schema_info,
             )
             
             yield _yield_json_chunk(
@@ -182,90 +284,14 @@ async def process_query_stream(
                 },
             )
             
-            # Determine which indices to query
-            index_names = parsed_query.index_names or request.index_names
-            if not index_names:
-                yield _yield_json_chunk(
-                    "error",
-                    {
-                        "message": "No index names specified or inferred from query",
-                        "parsed_query": parsed_query.original_query,
-                    },
-                )
-                return
-            
-            # Step 3: Discover schema if enabled
-            schema_info = None
-            if request.discover_fields:
-                yield _yield_json_chunk(
-                    "status",
-                    {
-                        "step": "field_discovery",
-                        "message": f"Discovering schema for indices: {', '.join(index_names)}...",
-                    },
-                )
-                
-                try:
-                    # Discover schema for the first index (can be extended to handle multiple indices)
-                    primary_index = index_names[0] if index_names else None
-                    if primary_index:
-                        # Handle wildcard indices by trying to discover from a specific match
-                        # if "*" in primary_index:
-                        #     # For wildcard indices, we'll skip detailed discovery
-                        #     # but still use what we can infer from the parsed query
-                        #     yield _yield_json_chunk(
-                        #         "status",
-                        #         {
-                        #             "step": "field_discovery",
-                        #             "message": "Wildcard index detected, skipping detailed schema discovery",
-                        #         },
-                        #     )
-                        # else:
-                        schema_info = await schema_discovery.discover_index_schema(
-                            index_name=primary_index,
-                            use_cache=True,
-                        )
-
-                        yield _yield_json_chunk(
-                            "schema_discovered",
-                            {
-                                "schema": {
-                                    "index_name": schema_info.index_name,
-                                    "total_fields": len(schema_info.fields),
-                                    "field_count_by_type": {
-                                        ft.value: sum(
-                                            1
-                                            for f in schema_info.fields.values()
-                                            if f.field_type == ft
-                                        )
-                                        for ft in [
-                                            schema_info.fields[f].field_type
-                                            for f in list(schema_info.fields.keys())[:10]
-                                        ]
-                                    }
-                                    if schema_info.fields
-                                    else {},
-                                },
-                            },
-                        )
-                except Exception as e:
-                    logger.warning(
-                        "Schema discovery failed, continuing without schema info",
-                        error=str(e),
-                        error_type=type(e).__name__,
-                    )
-                    yield _yield_json_chunk(
-                        "warning",
-                        {
-                            "step": "field_discovery",
-                            "message": f"Schema discovery failed: {str(e)}",
-                        },
-                    )
+            # Update indices from parsed query (may have been refined during parsing)
+            if parsed_query.index_names:
+                index_names = parsed_query.index_names
             
             # Update query builder with schema info
             query_builder.schema_info = schema_info
             
-            # Step 4: Build OpenSearch query
+            # Step 5: Build OpenSearch query
             yield _yield_json_chunk(
                 "status",
                 {
