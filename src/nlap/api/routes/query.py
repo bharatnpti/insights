@@ -71,10 +71,11 @@ async def process_query_stream(
     """Process natural language query and stream the results step-by-step.
     
     This endpoint:
-    1. Parses the natural language query
-    2. Discovers required fields (if enabled)
-    3. Builds the OpenSearch query
-    4. Returns the final query
+    1. Determines target indices from query or request
+    2. Discovers schema for the indices (if enabled)
+    3. Parses the natural language query WITH schema information
+    4. Builds the OpenSearch query
+    5. Returns the final query
     
     All steps are streamed as Server-Sent Events (SSE).
     
@@ -321,7 +322,7 @@ async def process_query_stream(
                 },
             )
             
-            # Step 5: Final summary
+            # Step 6: Final summary
             yield _yield_json_chunk(
                 "complete",
                 {
@@ -373,6 +374,12 @@ async def process_query(
     
     This is a non-streaming version that returns all results at once.
     
+    Flow:
+    1. Determines target indices from query or request
+    2. Discovers schema for the indices (if enabled)
+    3. Parses the natural language query WITH schema information
+    4. Builds the OpenSearch query
+    
     Args:
         request: Query request with natural language input
         azure_openai_client: Azure OpenAI client dependency
@@ -387,26 +394,28 @@ async def process_query(
         schema_discovery = SchemaDiscoveryEngine(opensearch_manager)
         query_builder = QueryBuilder()
         
-        # Parse query
-        parsed_query = await parser.parse(
-            query=request.query,
-            index_names=request.index_names,
-        )
+        # Step 1: Determine which indices to query (needed for schema discovery)
+        index_names = request.index_names
+        if not index_names:
+            # Do a lightweight parse just to get index names
+            temp_parsed = await parser.parse(
+                query=request.query,
+                index_names=None,
+            )
+            index_names = temp_parsed.index_names
         
-        # Determine indices
-        index_names = parsed_query.index_names or request.index_names
         if not index_names:
             raise HTTPException(
                 status_code=400,
                 detail="No index names specified or inferred from query",
             )
         
-        # Discover schema if enabled
+        # Step 2: Discover schema if enabled (before parsing to enable field validation)
         schema_info = None
         if request.discover_fields:
             try:
                 primary_index = index_names[0] if index_names else None
-                if primary_index and "*" not in primary_index:
+                if primary_index:
                     schema_info = await schema_discovery.discover_index_schema(
                         index_name=primary_index,
                         use_cache=True,
@@ -417,10 +426,21 @@ async def process_query(
                     error=str(e),
                 )
         
-        # Update query builder
+        # Step 3: Parse query WITH schema information for better field validation and mapping
+        parsed_query = await parser.parse(
+            query=request.query,
+            index_names=index_names,
+            schema_info=schema_info,
+        )
+        
+        # Update indices from parsed query (may have been refined during parsing)
+        if parsed_query.index_names:
+            index_names = parsed_query.index_names
+        
+        # Update query builder with schema info
         query_builder.schema_info = schema_info
         
-        # Build query
+        # Step 4: Build query
         opensearch_query = query_builder.build_query(
             parsed_query=parsed_query,
             size=request.size,

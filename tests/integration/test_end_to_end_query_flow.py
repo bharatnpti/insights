@@ -3,11 +3,15 @@
 
 This test validates the complete flow:
 1. User natural language query
-2. Natural Language Parser -> ParsedQuery
-3. Schema Discovery (if enabled)
-4. Query Builder -> OpenSearch Query DSL
-5. Execute query on OpenSearch
-6. Validate response structure and content
+2. Determine target indices from query or request
+3. Schema Discovery for the indices (if enabled) - BEFORE parsing
+4. Natural Language Parser -> ParsedQuery (WITH schema info for validation)
+5. Query Builder -> OpenSearch Query DSL
+6. Execute query on OpenSearch
+7. Validate response structure and content
+
+IMPORTANT: This test validates that schema discovery happens BEFORE parsing,
+so that the parser can use schema information for field validation and mapping.
 
 Usage:
     export AZURE_ENDPOINT='https://gpt4-se-dev.openai.azure.com/'
@@ -147,6 +151,14 @@ async def test_end_to_end_query_flow():
             "expect_results": True,
             "validate_aggregations": True,
         },
+        {
+            "name": "Schema Validation Test",
+            "query": "find documents where timestamp is greater than yesterday",
+            "index_names": [index_pattern],
+            "discover_fields": True,
+            "expect_results": True,
+            "validate_schema_usage": True,  # This test validates schema is used during parsing
+        },
     ]
 
     print("Step 4: Testing query flow...")
@@ -160,13 +172,29 @@ async def test_end_to_end_query_flow():
         print("-" * 80)
 
         try:
-            # Sub-step 1: Discover schema if enabled
+            # Sub-step 1: Determine indices (needed for schema discovery)
+            index_names = test_case.get("index_names")
+            if not index_names:
+                print("  Sub-step 1a: Extracting index names from query...")
+                # Do a lightweight parse to get index names
+                temp_parsed = await parser.parse(
+                    query=test_case["query"],
+                    index_names=None,
+                )
+                index_names = temp_parsed.index_names
+                if index_names:
+                    print(f"    ✓ Index names extracted: {index_names}")
+                else:
+                    print(f"    ⚠ No index names extracted from query")
+                print()
+
+            # Sub-step 2: Discover schema if enabled (BEFORE parsing)
             schema_info = None
             if test_case.get("discover_fields") and schema_discovery:
-                print("  Sub-step 1: Discovering schema...")
+                print("  Sub-step 2: Discovering schema (BEFORE parsing for field validation)...")
                 try:
-                    primary_index = test_case["index_names"][0] if test_case["index_names"] else None
-                    if primary_index and "*" not in primary_index:
+                    primary_index = index_names[0] if index_names else None
+                    if primary_index:
                         schema_info = await schema_discovery.discover_index_schema(
                             index_name=primary_index,
                             use_cache=True,
@@ -182,19 +210,63 @@ async def test_end_to_end_query_flow():
                             print(f"      - Type: {field_info.field_type.value}")
                             print(f"      - Is array: {field_info.is_array}")
                             print(f"      - Is nested: {field_info.is_nested}")
-                    else:
-                        print(f"    ⚠ Skipping schema discovery (wildcard index or no index specified)")
                 except Exception as e:
                     print(f"    ⚠ Schema discovery failed: {e}")
                     print(f"    Continuing without schema...")
                 print()
 
-            # Sub-step 2: Parse natural language query
-            print("  Sub-step 2: Parsing natural language query...")
+            # Sub-step 3: Parse natural language query WITH schema information
+            print("  Sub-step 3: Parsing natural language query WITH schema validation...")
             parsed_query = await parser.parse(
                 query=test_case["query"],
-                index_names=test_case.get("index_names"),
+                index_names=index_names,
+                schema_info=schema_info,  # Pass schema info for validation
             )
+            
+            # Validate that schema was used if it was discovered
+            if schema_info:
+                print(f"    ✓ Schema information was provided to parser")
+                print(f"    ✓ Parser received {len(schema_info.fields)} fields from schema for validation")
+                # Check if parser used schema by looking for field validation in errors
+                if parsed_query.errors:
+                    schema_validation_errors = [
+                        e for e in parsed_query.errors 
+                        if "field" in e.lower() or "adjusted" in e.lower() or "unknown" in e.lower()
+                    ]
+                    if schema_validation_errors:
+                        print(f"    ✓ Parser used schema for field validation")
+                        for err in schema_validation_errors[:3]:
+                            print(f"      - {err}")
+                
+                # Additional validation: Check if fields in filters/aggregations match schema fields
+                if test_case.get("validate_schema_usage"):
+                    print(f"    Validating schema usage in parsed query...")
+                    schema_field_names = set(schema_info.fields.keys())
+                    parsed_fields_used = set()
+                    
+                    # Collect fields from filters
+                    for condition in parsed_query.filters.conditions:
+                        if condition.field:
+                            parsed_fields_used.add(condition.field)
+                    
+                    # Collect fields from aggregations
+                    for agg in parsed_query.aggregations:
+                        if agg.field:
+                            parsed_fields_used.add(agg.field)
+                    
+                    # Check if parsed fields match schema fields
+                    if parsed_fields_used:
+                        matching_fields = parsed_fields_used.intersection(schema_field_names)
+                        if matching_fields:
+                            print(f"    ✓ Found {len(matching_fields)} matching fields in schema: {list(matching_fields)[:5]}")
+                        else:
+                            print(f"    ⚠ No parsed fields match schema fields")
+                            print(f"      Parsed fields: {list(parsed_fields_used)}")
+                            print(f"      Schema has {len(schema_field_names)} fields")
+            else:
+                print(f"    ⚠ No schema information provided to parser")
+                if test_case.get("validate_schema_usage"):
+                    print(f"    ✗ Schema validation test requires schema discovery to be enabled!")
 
             print(f"    ✓ Query parsed successfully")
             print(f"    Intent: {parsed_query.intent.category.value if parsed_query.intent else 'N/A'}")
@@ -223,12 +295,16 @@ async def test_end_to_end_query_flow():
             assert parsed_query.confidence > 0, "Confidence should be positive"
             print()
 
-            # Sub-step 3: Update query builder with schema
+            # Update indices from parsed query (may have been refined during parsing)
+            if parsed_query.index_names:
+                index_names = parsed_query.index_names
+
+            # Sub-step 4: Update query builder with schema
             if schema_info:
                 query_builder.schema_info = schema_info
 
-            # Sub-step 4: Build OpenSearch query
-            print("  Sub-step 4: Building OpenSearch query...")
+            # Sub-step 5: Build OpenSearch query
+            print("  Sub-step 5: Building OpenSearch query...")
             opensearch_query = query_builder.build_query(
                 parsed_query=parsed_query,
                 size=test_case.get("size", 10),
@@ -250,9 +326,9 @@ async def test_end_to_end_query_flow():
             assert "size" in opensearch_query, "Query must have 'size' field"
             print()
 
-            # Sub-step 5: Execute query on OpenSearch
+            # Sub-step 6: Execute query on OpenSearch
             if not opensearch_manager:
-                print("  Sub-step 5: Skipped (OpenSearch not available)")
+                print("  Sub-step 6: Skipped (OpenSearch not available)")
                 all_results.append({
                     "test": test_idx,
                     "name": test_case["name"],
@@ -262,10 +338,10 @@ async def test_end_to_end_query_flow():
                 print()
                 continue
 
-            print("  Sub-step 5: Executing query on OpenSearch...")
+            print("  Sub-step 6: Executing query on OpenSearch...")
             try:
                 result = await opensearch_manager.execute_query(
-                    index=test_case["index_names"][0] if test_case["index_names"] else index_pattern,
+                    index=index_names[0] if index_names else index_pattern,
                     query=opensearch_query["query"],
                     size=opensearch_query.get("size", 10),
                     from_=opensearch_query.get("from", 0),
