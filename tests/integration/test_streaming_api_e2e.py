@@ -61,7 +61,9 @@ class StreamingAPITester:
         index_names: Optional[List[str]] = None,
         discover_fields: bool = True,
         size: Optional[int] = None,
-        from_: int = 0
+        from_: int = 0,
+        conv_id: Optional[str] = None,
+        turn_id: Optional[str] = None,
     ) -> Dict:
         """Send a query to the streaming API and collect all events."""
         events = []
@@ -77,6 +79,10 @@ class StreamingAPITester:
             payload["index_names"] = index_names
         if size:
             payload["size"] = size
+        if conv_id:
+            payload["conv_id"] = conv_id
+        if turn_id:
+            payload["turn_id"] = turn_id
             
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
@@ -212,6 +218,8 @@ class StreamingAPITester:
         index_names: Optional[List[str]] = None,
         discover_fields: bool = True,
         expected_steps: Optional[List[str]] = None,
+        conv_id: Optional[str] = None,
+        turn_id: Optional[str] = None,
     ) -> Dict:
         """Run a single test case."""
         print(f"\n{'='*80}")
@@ -225,6 +233,8 @@ class StreamingAPITester:
             query=query,
             index_names=index_names,
             discover_fields=discover_fields,
+            conv_id=conv_id,
+            turn_id=turn_id,
         )
         
         # Validate response
@@ -248,7 +258,8 @@ class StreamingAPITester:
                 schema = data.get("schema", {})
                 total_fields = schema.get("total_fields", 0)
                 index_name = schema.get("index_name", "unknown")
-                print(f"  {i}. [{event_type}] Schema discovered for {index_name}: {total_fields} fields")
+                total_docs = schema.get("total_documents_analyzed", 0)
+                print(f"  {i}. [{event_type}] Schema discovered for {index_name}: {total_fields} fields, {total_docs} documents analyzed")
             elif event_type == "parsed":
                 parsed = data.get("parsed_query", {})
                 intent = parsed.get("intent", {}).get("category", "unknown")
@@ -386,6 +397,30 @@ async def main():
             "index_names": ["ia-platform-prod-*"],
             "discover_fields": False,
         },
+        {
+            "name": "ID-based Schema Discovery - Conv ID",
+            "query": "show me all fields in documents",
+            "index_names": ["ia-platform-prod-*"],
+            "discover_fields": True,
+            "conv_id": "test_conv_123",  # Use actual conv_id if available
+            "turn_id": None,
+        },
+        {
+            "name": "ID-based Schema Discovery - Turn ID",
+            "query": "show me all fields in documents",
+            "index_names": ["ia-platform-prod-*"],
+            "discover_fields": True,
+            "conv_id": None,
+            "turn_id": "test_turn_456",  # Use actual turn_id if available
+        },
+        {
+            "name": "ID-based Schema Discovery - Both IDs",
+            "query": "show me all fields in documents",
+            "index_names": ["ia-platform-prod-*"],
+            "discover_fields": True,
+            "conv_id": "test_conv_123",
+            "turn_id": "test_turn_456",
+        },
     ]
     
     # Run all test cases
@@ -397,6 +432,8 @@ async def main():
             query=test_case["query"],
             index_names=test_case.get("index_names"),
             discover_fields=test_case.get("discover_fields", True),
+            conv_id=test_case.get("conv_id"),
+            turn_id=test_case.get("turn_id"),
         )
         await asyncio.sleep(0.5)  # Small delay between tests
     

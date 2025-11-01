@@ -278,6 +278,47 @@ class TestSchemaCache:
 
         assert key1 == key2
 
+    def test_generate_cache_key_with_conv_id(self):
+        """Test cache key generation with conv_id."""
+        cache = SchemaCache()
+
+        key1 = cache.generate_cache_key("index1", conv_id="conv123")
+        key2 = cache.generate_cache_key("index1", conv_id="conv123")
+        key3 = cache.generate_cache_key("index1", conv_id="conv456")
+
+        # Same inputs should generate same key
+        assert key1 == key2
+        # Different inputs should generate different keys
+        assert key1 != key3
+
+    def test_generate_cache_key_with_turn_id(self):
+        """Test cache key generation with turn_id."""
+        cache = SchemaCache()
+
+        key1 = cache.generate_cache_key("index1", turn_id="turn123")
+        key2 = cache.generate_cache_key("index1", turn_id="turn123")
+        key3 = cache.generate_cache_key("index1", turn_id="turn456")
+
+        # Same inputs should generate same key
+        assert key1 == key2
+        # Different inputs should generate different keys
+        assert key1 != key3
+
+    def test_generate_cache_key_with_both_ids(self):
+        """Test cache key generation with both conv_id and turn_id."""
+        cache = SchemaCache()
+
+        key1 = cache.generate_cache_key("index1", conv_id="conv123", turn_id="turn456")
+        key2 = cache.generate_cache_key("index1", conv_id="conv123", turn_id="turn456")
+        key3 = cache.generate_cache_key("index1", conv_id="conv123", turn_id="turn789")
+        key4 = cache.generate_cache_key("index1", conv_id="conv789", turn_id="turn456")
+
+        # Same inputs should generate same key
+        assert key1 == key2
+        # Different inputs should generate different keys
+        assert key1 != key3
+        assert key1 != key4
+
     def test_get_next_version(self):
         """Test version number generation."""
         cache = SchemaCache()
@@ -336,7 +377,8 @@ class TestSchemaDiscoveryEngine:
             fields={"field1": FieldInfo(name="field1", field_type=FieldType.TEXT)},
             version=1,
         )
-        cache_key = discovery_engine.cache.generate_cache_key("test_index", sample_size=10)
+        # Use default sample_size (500) to match what discover_index_schema uses by default
+        cache_key = discovery_engine.cache.generate_cache_key("test_index", sample_size=500)
         discovery_engine.cache.set(cache_key, cached_schema)
 
         schema = await discovery_engine.discover_index_schema("test_index", use_cache=True)
@@ -398,4 +440,197 @@ class TestSchemaDiscoveryEngine:
         invalidated = discovery_engine.invalidate_cache(cache_key=cache_key)
 
         assert invalidated == 1
+
+    @pytest.mark.asyncio
+    async def test_identify_id_fields(self, discovery_engine):
+        """Test LLM-based field identification."""
+        from unittest.mock import AsyncMock
+        
+        # Mock Azure OpenAI client
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": '["conv_id", "conversation_id", "metadata.conv_id"]'
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        index_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conv_id": {"type": "keyword"},
+                        "conversation_id": {"type": "keyword"},
+                        "metadata": {
+                            "properties": {
+                                "conv_id": {"type": "keyword"}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        field_names = await discovery_engine._identify_id_fields(
+            index_mapping=index_mapping,
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+        )
+        
+        assert isinstance(field_names, list)
+        assert len(field_names) > 0
+        assert "conv_id" in field_names or "conversation_id" in field_names
+        mock_azure_client.chat_completion.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_discover_schema_by_ids(self, discovery_engine, mock_opensearch_manager):
+        """Test schema discovery by conv_id/turn_id."""
+        from unittest.mock import AsyncMock, MagicMock
+        
+        # Mock Azure OpenAI client
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": '["conv_id", "conversation_id"]'
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        # Mock index mapping
+        mock_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conv_id": {"type": "keyword"},
+                        "conversation_id": {"type": "keyword"}
+                    }
+                }
+            }
+        }
+        mock_opensearch_manager.get_index_mapping = AsyncMock(return_value=mock_mapping)
+        
+        # Mock scroll query to return batches
+        async def mock_scroll(*args, **kwargs):
+            # Yield two batches
+            yield {
+                "hits": [
+                    {"conv_id": "conv123", "field1": "value1", "field2": 100},
+                    {"conv_id": "conv123", "field1": "value2", "field2": 200},
+                ],
+                "total": 3,
+            }
+            yield {
+                "hits": [
+                    {"conv_id": "conv123", "field1": "value3", "field2": 300},
+                ],
+                "total": 3,
+            }
+        
+        mock_opensearch_manager.scroll_query = mock_scroll
+        
+        schema = await discovery_engine.discover_schema_by_ids(
+            index_name="test_index",
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+            use_cache=False,
+        )
+        
+        assert schema.index_name == "test_index"
+        assert len(schema.fields) > 0
+        assert "field1" in schema.fields
+        assert "field2" in schema.fields
+        assert schema.total_documents_analyzed == 3
+        mock_opensearch_manager.get_index_mapping.assert_called_once_with("test_index")
+        mock_azure_client.chat_completion.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_discover_schema_by_ids_with_cache(self, discovery_engine):
+        """Test that ID-based schema discovery uses cache."""
+        from unittest.mock import AsyncMock
+        
+        # Pre-populate cache
+        cached_schema = SchemaInfo(
+            index_name="test_index",
+            fields={"field1": FieldInfo(name="field1", field_type=FieldType.TEXT)},
+            version=1,
+            total_documents_analyzed=10,
+        )
+        cache_key = discovery_engine.cache.generate_cache_key(
+            "test_index", conv_id="conv123", turn_id=None
+        )
+        discovery_engine.cache.set(cache_key, cached_schema)
+        
+        # Mock Azure client (should not be called if cache hit)
+        mock_azure_client = AsyncMock()
+        
+        schema = await discovery_engine.discover_schema_by_ids(
+            index_name="test_index",
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+            use_cache=True,
+        )
+        
+        assert schema.version == 1
+        assert schema.total_documents_analyzed == 10
+        # Should not have called Azure client for LLM
+        mock_azure_client.chat_completion.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_discover_schema_by_ids_both_ids(self, discovery_engine, mock_opensearch_manager):
+        """Test schema discovery with both conv_id and turn_id."""
+        from unittest.mock import AsyncMock
+        
+        # Mock Azure OpenAI client
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": '["conv_id", "turn_id", "conversation_id", "message_id"]'
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        # Mock index mapping
+        mock_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conv_id": {"type": "keyword"},
+                        "turn_id": {"type": "keyword"}
+                    }
+                }
+            }
+        }
+        mock_opensearch_manager.get_index_mapping = AsyncMock(return_value=mock_mapping)
+        
+        # Mock scroll query
+        async def mock_scroll(*args, **kwargs):
+            yield {
+                "hits": [
+                    {"conv_id": "conv123", "turn_id": "turn456", "field1": "value1"},
+                ],
+                "total": 1,
+            }
+        
+        mock_opensearch_manager.scroll_query = mock_scroll
+        
+        schema = await discovery_engine.discover_schema_by_ids(
+            index_name="test_index",
+            conv_id="conv123",
+            turn_id="turn456",
+            azure_client=mock_azure_client,
+            use_cache=False,
+        )
+        
+        assert schema.index_name == "test_index"
+        assert schema.total_documents_analyzed == 1
+        mock_azure_client.chat_completion.assert_called_once()
 

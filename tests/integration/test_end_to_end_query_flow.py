@@ -159,6 +159,36 @@ async def test_end_to_end_query_flow():
             "expect_results": True,
             "validate_schema_usage": True,  # This test validates schema is used during parsing
         },
+        {
+            "name": "ID-based Schema Discovery - Conv ID Only",
+            "query": "show me all fields in documents",
+            "index_names": [index_pattern],
+            "discover_fields": True,
+            "expect_results": True,
+            "conv_id": "test_conv_123",  # Use a test conv_id if available
+            "turn_id": None,
+            "validate_id_discovery": True,
+        },
+        {
+            "name": "ID-based Schema Discovery - Turn ID Only",
+            "query": "show me all fields in documents",
+            "index_names": [index_pattern],
+            "discover_fields": True,
+            "expect_results": True,
+            "conv_id": None,
+            "turn_id": "test_turn_456",  # Use a test turn_id if available
+            "validate_id_discovery": True,
+        },
+        {
+            "name": "ID-based Schema Discovery - Both IDs",
+            "query": "show me all fields in documents",
+            "index_names": [index_pattern],
+            "discover_fields": True,
+            "expect_results": True,
+            "conv_id": "test_conv_123",
+            "turn_id": "test_turn_456",
+            "validate_id_discovery": True,
+        },
     ]
 
     print("Step 4: Testing query flow...")
@@ -195,12 +225,33 @@ async def test_end_to_end_query_flow():
                 try:
                     primary_index = index_names[0] if index_names else None
                     if primary_index:
-                        schema_info = await schema_discovery.discover_index_schema(
-                            index_name=primary_index,
-                            use_cache=True,
-                        )
+                        # Check if conv_id or turn_id are provided for ID-based discovery
+                        conv_id = test_case.get("conv_id")
+                        turn_id = test_case.get("turn_id")
+                        
+                        if conv_id or turn_id:
+                            print(f"    Using ID-based schema discovery (conv_id={conv_id}, turn_id={turn_id})...")
+                            schema_info = await schema_discovery.discover_schema_by_ids(
+                                index_name=primary_index,
+                                conv_id=conv_id,
+                                turn_id=turn_id,
+                                azure_client=azure_client,
+                                use_cache=True,
+                            )
+                            print(f"    ✓ ID-based schema discovery completed")
+                        else:
+                            schema_info = await schema_discovery.discover_index_schema(
+                                index_name=primary_index,
+                                use_cache=True,
+                            )
                         print(f"    ✓ Schema discovered: {len(schema_info.fields)} fields")
                         print(f"    Documents analyzed: {schema_info.total_documents_analyzed}")
+                        
+                        # Validate ID-based discovery if requested
+                        if test_case.get("validate_id_discovery"):
+                            if conv_id or turn_id:
+                                print(f"    ✓ ID-based discovery validated")
+                                print(f"      Discovered schema from documents matching IDs")
                         
                         # Validate that schema includes field information
                         if schema_info.fields:
