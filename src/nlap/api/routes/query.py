@@ -43,6 +43,14 @@ class QueryRequest(BaseModel):
         alias="from",
         description="Starting offset for pagination",
     )
+    conv_id: Optional[str] = Field(
+        None,
+        description="Optional conversation ID to use for schema discovery. If provided, schema will be built from all documents matching this conversation ID.",
+    )
+    turn_id: Optional[str] = Field(
+        None,
+        description="Optional turn ID to use for schema discovery. If provided, schema will be built from all documents matching this turn ID.",
+    )
 
 
 def _yield_json_chunk(event_type: str, data: dict) -> bytes:
@@ -135,74 +143,125 @@ async def process_query_stream(
             # Step 3: Discover schema if enabled (before parsing to enable field validation)
             schema_info = None
             if request.discover_fields:
-                yield _yield_json_chunk(
-                    "status",
-                    {
-                        "step": "field_discovery",
-                        "message": f"Discovering schema for indices: {', '.join(index_names)}...",
-                    },
-                )
+                primary_index = index_names[0] if index_names else None
                 
-                try:
-                    # Discover schema for the first index (can be extended to handle multiple indices)
-                    primary_index = index_names[0] if index_names else None
-                    if primary_index:
-                        # Handle wildcard indices by trying to discover from a specific match
-                        # if "*" in primary_index:
-                        #     # For wildcard indices, we'll skip detailed discovery
-                        #     # but still use what we can infer from the parsed query
-                        #     yield _yield_json_chunk(
-                        #         "status",
-                        #         {
-                        #             "step": "field_discovery",
-                        #             "message": "Wildcard index detected, skipping detailed schema discovery",
-                        #         },
-                        #     )
-                        # else:
+                # Check if conv_id or turn_id are provided for ID-based schema discovery
+                if primary_index and (request.conv_id or request.turn_id):
+                    yield _yield_json_chunk(
+                        "status",
+                        {
+                            "step": "field_discovery",
+                            "message": f"Discovering schema from documents matching conv_id/turn_id for index: {primary_index}...",
+                        },
+                    )
+                    
+                    try:
+                        schema_info = await schema_discovery.discover_schema_by_ids(
+                            index_name=primary_index,
+                            conv_id=request.conv_id,
+                            turn_id=request.turn_id,
+                            azure_client=azure_openai_client,
+                            use_cache=True,
+                        )
+                        
+                        # Calculate field_count_by_type and serialize fields for response
+                        if schema_info:
+                            field_count_by_type = {}
+                            if schema_info.fields:
+                                for field_info in schema_info.fields.values():
+                                    field_type_value = field_info.field_type.value
+                                    field_count_by_type[field_type_value] = (
+                                        field_count_by_type.get(field_type_value, 0) + 1
+                                    )
+                            
+                            # Serialize fields dictionary with FieldInfo objects
+                            fields_dict = {
+                                field_name: field_info.model_dump()
+                                for field_name, field_info in schema_info.fields.items()
+                            }
+                            
+                            yield _yield_json_chunk(
+                                "schema_discovered",
+                                {
+                                    "schema": {
+                                        "index_name": schema_info.index_name,
+                                        "total_fields": len(schema_info.fields),
+                                        "field_count_by_type": field_count_by_type,
+                                        "fields": fields_dict,
+                                        "total_documents_analyzed": schema_info.total_documents_analyzed,
+                                    },
+                                },
+                            )
+                    except Exception as e:
+                        logger.warning(
+                            "ID-based schema discovery failed, continuing without schema info",
+                            error=str(e),
+                            error_type=type(e).__name__,
+                        )
+                        yield _yield_json_chunk(
+                            "warning",
+                            {
+                                "step": "field_discovery",
+                                "message": f"ID-based schema discovery failed: {str(e)}",
+                            },
+                        )
+                elif primary_index:
+                    # Use regular schema discovery
+                    yield _yield_json_chunk(
+                        "status",
+                        {
+                            "step": "field_discovery",
+                            "message": f"Discovering schema for indices: {', '.join(index_names)}...",
+                        },
+                    )
+                    
+                    try:
                         schema_info = await schema_discovery.discover_index_schema(
                             index_name=primary_index,
                             use_cache=True,
                         )
-
-                        # Calculate field_count_by_type for all fields
-                        field_count_by_type = {}
-                        if schema_info.fields:
-                            for field_info in schema_info.fields.values():
-                                field_type_value = field_info.field_type.value
-                                field_count_by_type[field_type_value] = (
-                                    field_count_by_type.get(field_type_value, 0) + 1
-                                )
                         
-                        # Serialize fields dictionary with FieldInfo objects
-                        fields_dict = {
-                            field_name: field_info.model_dump()
-                            for field_name, field_info in schema_info.fields.items()
-                        }
-                        
-                        yield _yield_json_chunk(
-                            "schema_discovered",
-                            {
-                                "schema": {
-                                    "index_name": schema_info.index_name,
-                                    "total_fields": len(schema_info.fields),
-                                    "field_count_by_type": field_count_by_type,
-                                    "fields": fields_dict,
+                        # Calculate field_count_by_type and serialize fields for response
+                        if schema_info:
+                            field_count_by_type = {}
+                            if schema_info.fields:
+                                for field_info in schema_info.fields.values():
+                                    field_type_value = field_info.field_type.value
+                                    field_count_by_type[field_type_value] = (
+                                        field_count_by_type.get(field_type_value, 0) + 1
+                                    )
+                            
+                            # Serialize fields dictionary with FieldInfo objects
+                            fields_dict = {
+                                field_name: field_info.model_dump()
+                                for field_name, field_info in schema_info.fields.items()
+                            }
+                            
+                            yield _yield_json_chunk(
+                                "schema_discovered",
+                                {
+                                    "schema": {
+                                        "index_name": schema_info.index_name,
+                                        "total_fields": len(schema_info.fields),
+                                        "field_count_by_type": field_count_by_type,
+                                        "fields": fields_dict,
+                                        "total_documents_analyzed": schema_info.total_documents_analyzed,
+                                    },
                                 },
+                            )
+                    except Exception as e:
+                        logger.warning(
+                            "Schema discovery failed, continuing without schema info",
+                            error=str(e),
+                            error_type=type(e).__name__,
+                        )
+                        yield _yield_json_chunk(
+                            "warning",
+                            {
+                                "step": "field_discovery",
+                                "message": f"Schema discovery failed: {str(e)}",
                             },
                         )
-                except Exception as e:
-                    logger.warning(
-                        "Schema discovery failed, continuing without schema info",
-                        error=str(e),
-                        error_type=type(e).__name__,
-                    )
-                    yield _yield_json_chunk(
-                        "warning",
-                        {
-                            "step": "field_discovery",
-                            "message": f"Schema discovery failed: {str(e)}",
-                        },
-                    )
             
             # Step 4: Parse natural language query WITH schema information
             yield _yield_json_chunk(
@@ -416,10 +475,21 @@ async def process_query(
             try:
                 primary_index = index_names[0] if index_names else None
                 if primary_index:
-                    schema_info = await schema_discovery.discover_index_schema(
-                        index_name=primary_index,
-                        use_cache=True,
-                    )
+                    # Check if conv_id or turn_id are provided for ID-based schema discovery
+                    if request.conv_id or request.turn_id:
+                        schema_info = await schema_discovery.discover_schema_by_ids(
+                            index_name=primary_index,
+                            conv_id=request.conv_id,
+                            turn_id=request.turn_id,
+                            azure_client=azure_openai_client,
+                            use_cache=True,
+                        )
+                    else:
+                        # Use regular schema discovery
+                        schema_info = await schema_discovery.discover_index_schema(
+                            index_name=primary_index,
+                            use_cache=True,
+                        )
             except Exception as e:
                 logger.warning(
                     "Schema discovery failed, continuing without schema info",

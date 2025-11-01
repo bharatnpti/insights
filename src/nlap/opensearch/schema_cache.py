@@ -151,6 +151,8 @@ class SchemaCache:
         index_name: str,
         query: Optional[dict] = None,
         sample_size: Optional[int] = None,
+        conv_id: Optional[str] = None,
+        turn_id: Optional[str] = None,
     ) -> str:
         """Generate a cache key for a schema.
 
@@ -158,6 +160,8 @@ class SchemaCache:
             index_name: Index name
             query: Optional query criteria (for document-based discovery)
             sample_size: Optional sample size
+            conv_id: Optional conversation ID (for ID-based discovery)
+            turn_id: Optional turn ID (for ID-based discovery)
 
         Returns:
             Cache key string
@@ -172,7 +176,13 @@ class SchemaCache:
             key_parts.append(json.dumps(query, sort_keys=True))
 
         if sample_size:
-            key_parts.append(str(sample_size))
+            key_parts.append(f"size:{sample_size}")
+
+        if conv_id:
+            key_parts.append(f"conv_id:{conv_id}")
+
+        if turn_id:
+            key_parts.append(f"turn_id:{turn_id}")
 
         key_string = "|".join(key_parts)
         return hashlib.md5(key_string.encode()).hexdigest()

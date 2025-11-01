@@ -35,6 +35,306 @@ from nlap.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
+# Fallback mapping to use when index mapping fetch fails
+FALLBACK_INDEX_MAPPING = {
+    "mappings": {
+        "properties": {
+            "time": {"type": "date", "format": "strict_date_time"},
+            "cicd": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "source_intent": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "@timestamp": {"type": "date", "format": "strict_date_time"},
+            "k8s_version": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "message": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "referrerId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "logger_name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "thread_name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "level": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "application_id": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "languageModel": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "environment": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "tenant": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "channelId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_pod": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_namespace": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "featureId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "cicd-pipeline": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "vaspConnId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "conversationId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_host": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "spanId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_container": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "correlationId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "turnId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "step": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "k8s_image": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "traceId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "cms_tenant_id": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "experiment_context": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "evaluation_reason": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "ab_experiment_variant": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "ab_experiment": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "provider_name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "event": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "returnUseCaseId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "activeFeatures": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "callingAgent": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "authTechnicalError": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "sourceChannelId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "variant": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "isAppDeeplinksEnabled": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "value": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "tenantId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "key": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "authLevel": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "agent": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "beta": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "phase": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "x-correlation-id": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "filter": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "usecase_description": {"type": "text"},
+            "usecase_version": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "usecase_name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "input": {"type": "text"},
+            "completionTokens": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "functions": {"type": "text"},
+            "messages": {"type": "text"},
+            "promptTokens": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "responseTime": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "totalTokens": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "seed": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "model": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "result": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "prompt": {"type": "text"},
+            "response_status": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "link_count": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "unresolved_reason": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "log_entry_id": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "links_offered": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "log_entry_timestamp": {"type": "date", "format": "strict_date_time"},
+            "flexcards": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "customerFeedbackId": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "authMethod": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "natco_code": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "transcript": {"type": "text"},
+            "conversation": {"type": "text"},
+            "question": {"type": "text"},
+            "executionType": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+        }
+    }
+}
+
+
 
 class OpenSearchManager:
     """OpenSearch connection manager with basic authentication and connection pooling."""
@@ -220,6 +520,80 @@ class OpenSearchManager:
         return ConnectionHealth(
             healthy=True
         )
+
+    async def get_index_mapping(self, index: str) -> dict[str, Any]:
+        """Get index mapping from OpenSearch.
+
+        Args:
+            index: Index name to get mapping for
+
+        Returns:
+            Dictionary containing index mapping information
+
+        Raises:
+            RequestError: If mapping retrieval fails
+        """
+        client = self.get_client()
+
+        try:
+            start_time = time.time()
+            if self._use_async:
+                try:
+                    # Call get_mapping via indices namespace
+                    if hasattr(client, "indices"):
+                        indices_client = client.indices
+                        if hasattr(indices_client, "get_mapping"):
+                            # Direct attribute access
+                            result = indices_client.get_mapping(index=index)
+                            if asyncio.iscoroutine(result):
+                                response = await result
+                            else:
+                                response = result
+                        else:
+                            # Try via __getitem__ or call
+                            mapping_coro = self._safe_async_call(client, "indices.get_mapping", index=index)
+                            response = await mapping_coro
+                    else:
+                        # Fallback: use low-level API call
+                        mapping_coro = self._safe_async_call(client, "indices.get_mapping", index=index)
+                        response = await mapping_coro
+                except TypeError as e:
+                    logger.warning(
+                        "OpenSearch async method failed, falling back to sync mode",
+                        error=str(e),
+                        index=index,
+                    )
+                    self._use_async = False
+                    sync_client = self.get_sync_client()
+                    loop = asyncio.get_event_loop()
+                    response = await loop.run_in_executor(
+                        None, lambda: sync_client.indices.get_mapping(index=index)
+                    )
+            else:
+                loop = asyncio.get_event_loop()
+                response = await loop.run_in_executor(
+                    None, lambda: client.indices.get_mapping(index=index)
+                )
+
+            latency = (time.time() - start_time) * 1000
+            logger.debug(
+                "Index mapping retrieved",
+                index=index,
+                latency_ms=latency,
+            )
+
+            return response
+
+        except Exception as e:
+            logger.warning(
+                "Failed to retrieve index mapping, using fallback mapping",
+                error=str(e),
+                error_type=type(e).__name__,
+                index=index,
+            )
+            # Return fallback mapping wrapped in the same structure OpenSearch returns
+            # OpenSearch returns: {index_name: {mappings: {...}}}
+            return {index: FALLBACK_INDEX_MAPPING}
         # try:
         #     client = self.get_client()
         #     if self._use_async:
