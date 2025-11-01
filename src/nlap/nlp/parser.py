@@ -20,63 +20,13 @@ from nlap.nlp.models import (
 )
 from nlap.opensearch.schema_models import SchemaInfo
 from nlap.utils.logger import get_logger
+from nlap.utils.prompt_loader import load_prompt
 
 logger = get_logger(__name__)
 
 
 class NaturalLanguageParser:
     """Parse natural language queries into structured query intentions using Azure OpenAI."""
-
-    SYSTEM_PROMPT = """You are an expert natural language query parser for OpenSearch.
-Your task is to parse natural language queries into structured JSON format that can be used to build OpenSearch queries.
-
-You should extract:
-1. Target index names (if mentioned)
-2. Date ranges (e.g., "last 4 days", "October 27-30", "yesterday")
-3. Filter conditions (field, operator, value)
-4. Aggregations (count, sum, avg, group by, etc.)
-5. Fields to retrieve
-6. Sort order
-7. Result limit
-
-Date formats:
-- Relative dates: "last 4 days", "yesterday", "this month", etc.
-- Absolute dates: "2024-01-01", "October 27, 2024", etc.
-- Date ranges: "October 27-30", "2024-01-01 to 2024-01-31", etc.
-
-Operators:
-- equals, not_equals, greater_than, less_than, contains, starts_with, ends_with, in, not_in, exists, range
-
-Aggregation types:
-- count, sum, avg, min, max, percentage, terms, date_histogram, correlation
-
-Return a valid JSON object with this structure:
-{
-  "index_names": ["index1", "index2"],
-  "date_range": {
-    "start_date_str": "2024-01-01",
-    "end_date_str": "2024-01-31",
-    "relative_period": "last 4 days",
-    "is_relative": true
-  },
-  "filters": {
-    "must": [
-      {"field": "field_name", "operator": "equals", "value": "field_value"}
-    ],
-    "should": [],
-    "must_not": []
-  },
-  "aggregations": [
-    {"type": "count", "field": "field_name", "group_by": ["field1"], "alias": "total_count"}
-  ],
-  "fields": ["field1", "field2"],
-  "sort": {"field_name": "desc"},
-  "limit": 100
-}
-
-If a field is not mentioned or cannot be determined, use null or empty array/list.
-Be precise and only extract information that is explicitly stated or clearly implied.
-"""
 
     def __init__(
         self,
@@ -189,7 +139,7 @@ Be precise and only extract information that is explicitly stated or clearly imp
         user_prompt = self._build_user_prompt(query, schema_info, index_names)
 
         messages = [
-            {"role": "system", "content": self.SYSTEM_PROMPT},
+            {"role": "system", "content": load_prompt("nlp_parser_system.txt")},
             {"role": "user", "content": user_prompt},
         ]
 

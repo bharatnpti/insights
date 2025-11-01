@@ -10,6 +10,7 @@ from nlap.opensearch.schema_cache import SchemaCache
 from nlap.opensearch.schema_models import FieldInfo, FieldType, SchemaInfo
 from nlap.opensearch.type_identifier import TypeIdentifier
 from nlap.utils.logger import get_logger
+from nlap.utils.prompt_loader import load_prompt
 
 logger = get_logger(__name__)
 
@@ -237,17 +238,7 @@ class SchemaDiscoveryEngine:
             List of field names that should be queried
         """
         # Build the system prompt
-        system_prompt = """You are an expert at analyzing OpenSearch index mappings to identify fields.
-
-Given an index mapping and ID values (conv_id and/or turn_id), identify all possible field names in the mapping 
-that could correspond to these IDs. Consider:
-- Exact matches (e.g., "conv_id", "turn_id")
-- Variations (e.g., "conversation_id", "conversationId", "convId", "turnId", "conversationId")
-- Nested fields (e.g., "metadata.conv_id", "session.conversation_id")
-- Field name patterns (fields containing "conv", "conversation", "turn", "message_id", etc.)
-
-Return a JSON array of field names that should be queried. Only include fields that actually exist in the mapping.
-Return only the JSON array, no additional text."""
+        system_prompt = load_prompt("schema_id_fields.txt")
 
         # Build user prompt
         user_prompt_parts = [
@@ -338,49 +329,7 @@ Return only the JSON array, no additional text."""
             Complete OpenSearch query DSL dictionary
         """
         # Build the system prompt
-        system_prompt = """You are an expert at creating OpenSearch query DSL queries.
-
-Given an index mapping and ID values (conv_id and/or turn_id), create a complete OpenSearch query DSL query
-that will fetch all documents matching these IDs. Consider:
-- Exact matches (e.g., "conv_id", "turn_id")
-- Variations (e.g., "conversation_id", "conversationId", "convId", "turnId", "conversationId")
-- Nested fields (e.g., "metadata.conv_id", "session.conversation_id")
-- Field name patterns (fields containing "conv", "conversation", "turn", "message_id", etc.)
-- Use appropriate query types: term queries for exact matches, should clauses for OR logic
-- If both conv_id and turn_id are provided, create a query that matches documents with either
-
-Return ONLY a valid JSON object representing the OpenSearch query DSL query. Do not include any explanations or markdown formatting.
-IMPORTANT: Return the raw query DSL, NOT wrapped in a "query" key. The code will wrap it automatically.
-
-The query should be a complete, valid OpenSearch query DSL that will be inserted into {"query": <your_query>}.
-
-Use the actual conv_id and turn_id values provided in the user message. Replace any field name variations you find in the mapping
-with the actual values from the user message.
-
-Example format (use actual values from user message):
-{
-  "bool": {
-    "should": [
-      {"term": {"conversationId": "<actual_conv_id_value>"}},
-      {"term": {"conversation_id": "<actual_conv_id_value>"}},
-      {"term": {"turnId": "<actual_turn_id_value>"}},
-      {"term": {"turn_id": "<actual_turn_id_value>"}}
-    ],
-    "minimum_should_match": 1
-  }
-}
-
-DO NOT return:
-{
-  "query": {
-    "bool": {...}
-  }
-}
-
-Return only:
-{
-  "bool": {...}
-}"""
+        system_prompt = load_prompt("schema_query_generation.txt")
 
         # Build user prompt
         user_prompt_parts = [
