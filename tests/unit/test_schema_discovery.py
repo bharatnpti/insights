@@ -486,16 +486,135 @@ class TestSchemaDiscoveryEngine:
         mock_azure_client.chat_completion.assert_called_once()
 
     @pytest.mark.asyncio
-    async def test_discover_schema_by_ids(self, discovery_engine, mock_opensearch_manager):
-        """Test schema discovery by conv_id/turn_id."""
-        from unittest.mock import AsyncMock, MagicMock
+    async def test_generate_query_by_ids(self, discovery_engine):
+        """Test LLM-based complete query generation."""
+        from unittest.mock import AsyncMock
         
         # Mock Azure OpenAI client
         mock_azure_client = AsyncMock()
         mock_response = {
             "choices": [{
                 "message": {
-                    "content": '["conv_id", "conversation_id"]'
+                    "content": '{"bool": {"should": [{"term": {"conversationId": "conv123"}}, {"term": {"conversation_id": "conv123"}}], "minimum_should_match": 1}}'
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        index_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conversationId": {"type": "keyword"},
+                        "conversation_id": {"type": "keyword"},
+                        "turnId": {"type": "keyword"}
+                    }
+                }
+            }
+        }
+        
+        query = await discovery_engine._generate_query_by_ids(
+            index_mapping=index_mapping,
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+        )
+        
+        assert isinstance(query, dict)
+        assert "bool" in query or "term" in query or "match_all" in query
+        mock_azure_client.chat_completion.assert_called_once()
+        
+        # Verify the query structure is valid
+        if "bool" in query:
+            assert "should" in query["bool"] or "must" in query["bool"] or "filter" in query["bool"]
+
+    @pytest.mark.asyncio
+    async def test_generate_query_by_ids_unwraps_query(self, discovery_engine):
+        """Test that _generate_query_by_ids unwraps query if LLM wraps it in 'query' key."""
+        from unittest.mock import AsyncMock
+        
+        # Mock Azure OpenAI client - returns wrapped query
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": '{"query": {"bool": {"should": [{"term": {"conversationId": "conv123"}}], "minimum_should_match": 1}}}'
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        index_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conversationId": {"type": "keyword"}
+                    }
+                }
+            }
+        }
+        
+        query = await discovery_engine._generate_query_by_ids(
+            index_mapping=index_mapping,
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+        )
+        
+        # Should unwrap and return the actual query, not wrapped
+        assert isinstance(query, dict)
+        assert "query" not in query  # Should be unwrapped
+        assert "bool" in query  # Should have the bool query
+        mock_azure_client.chat_completion.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_generate_query_by_ids_fallback_to_match_all(self, discovery_engine):
+        """Test that _generate_query_by_ids falls back to match_all on invalid response."""
+        from unittest.mock import AsyncMock
+        
+        # Mock Azure OpenAI client - returns invalid JSON
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": "Invalid response that cannot be parsed"
+                }
+            }]
+        }
+        mock_azure_client.chat_completion = AsyncMock(return_value=mock_response)
+        
+        index_mapping = {
+            "test_index": {
+                "mappings": {
+                    "properties": {
+                        "conversationId": {"type": "keyword"}
+                    }
+                }
+            }
+        }
+        
+        query = await discovery_engine._generate_query_by_ids(
+            index_mapping=index_mapping,
+            conv_id="conv123",
+            turn_id=None,
+            azure_client=mock_azure_client,
+        )
+        
+        # Should fall back to match_all
+        assert query == {"match_all": {}}
+        mock_azure_client.chat_completion.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_discover_schema_by_ids(self, discovery_engine, mock_opensearch_manager):
+        """Test schema discovery by conv_id/turn_id with LLM-generated query."""
+        from unittest.mock import AsyncMock, MagicMock
+        
+        # Mock Azure OpenAI client - returns complete query
+        mock_azure_client = AsyncMock()
+        mock_response = {
+            "choices": [{
+                "message": {
+                    "content": '{"bool": {"should": [{"term": {"conversationId": "conv123"}}, {"term": {"conversation_id": "conv123"}}], "minimum_should_match": 1}}'
                 }
             }]
         }
@@ -506,7 +625,7 @@ class TestSchemaDiscoveryEngine:
             "test_index": {
                 "mappings": {
                     "properties": {
-                        "conv_id": {"type": "keyword"},
+                        "conversationId": {"type": "keyword"},
                         "conversation_id": {"type": "keyword"}
                     }
                 }
@@ -516,17 +635,22 @@ class TestSchemaDiscoveryEngine:
         
         # Mock scroll query to return batches
         async def mock_scroll(*args, **kwargs):
+            # Verify the query passed to scroll_query
+            query_arg = kwargs.get("query") or (args[1] if len(args) > 1 else None)
+            # Should receive the complete query from LLM (not wrapped in "query" key)
+            assert query_arg is not None
+            assert isinstance(query_arg, dict)
             # Yield two batches
             yield {
                 "hits": [
-                    {"conv_id": "conv123", "field1": "value1", "field2": 100},
-                    {"conv_id": "conv123", "field1": "value2", "field2": 200},
+                    {"conversationId": "conv123", "field1": "value1", "field2": 100},
+                    {"conversationId": "conv123", "field1": "value2", "field2": 200},
                 ],
                 "total": 3,
             }
             yield {
                 "hits": [
-                    {"conv_id": "conv123", "field1": "value3", "field2": 300},
+                    {"conversationId": "conv123", "field1": "value3", "field2": 300},
                 ],
                 "total": 3,
             }
@@ -584,15 +708,15 @@ class TestSchemaDiscoveryEngine:
 
     @pytest.mark.asyncio
     async def test_discover_schema_by_ids_both_ids(self, discovery_engine, mock_opensearch_manager):
-        """Test schema discovery with both conv_id and turn_id."""
+        """Test schema discovery with both conv_id and turn_id using LLM-generated query."""
         from unittest.mock import AsyncMock
         
-        # Mock Azure OpenAI client
+        # Mock Azure OpenAI client - returns complete query for both IDs
         mock_azure_client = AsyncMock()
         mock_response = {
             "choices": [{
                 "message": {
-                    "content": '["conv_id", "turn_id", "conversation_id", "message_id"]'
+                    "content": '{"bool": {"should": [{"term": {"conversationId": "conv123"}}, {"term": {"conversation_id": "conv123"}}, {"term": {"turnId": "turn456"}}, {"term": {"turn_id": "turn456"}}], "minimum_should_match": 1}}'
                 }
             }]
         }
@@ -603,8 +727,8 @@ class TestSchemaDiscoveryEngine:
             "test_index": {
                 "mappings": {
                     "properties": {
-                        "conv_id": {"type": "keyword"},
-                        "turn_id": {"type": "keyword"}
+                        "conversationId": {"type": "keyword"},
+                        "turnId": {"type": "keyword"}
                     }
                 }
             }
@@ -613,9 +737,13 @@ class TestSchemaDiscoveryEngine:
         
         # Mock scroll query
         async def mock_scroll(*args, **kwargs):
+            # Verify the query passed contains both IDs
+            query_arg = kwargs.get("query") or (args[1] if len(args) > 1 else None)
+            assert query_arg is not None
+            assert isinstance(query_arg, dict)
             yield {
                 "hits": [
-                    {"conv_id": "conv123", "turn_id": "turn456", "field1": "value1"},
+                    {"conversationId": "conv123", "turnId": "turn456", "field1": "value1"},
                 ],
                 "total": 1,
             }
@@ -633,4 +761,14 @@ class TestSchemaDiscoveryEngine:
         assert schema.index_name == "test_index"
         assert schema.total_documents_analyzed == 1
         mock_azure_client.chat_completion.assert_called_once()
+        
+        # Verify the LLM was called with both conv_id and turn_id
+        call_args = mock_azure_client.chat_completion.call_args
+        messages = call_args[1].get("messages") or call_args[0][0] if call_args[0] else None
+        if messages:
+            user_message = next((m for m in messages if m.get("role") == "user"), None)
+            if user_message:
+                content = user_message.get("content", "")
+                assert "conv123" in content
+                assert "turn456" in content
 
