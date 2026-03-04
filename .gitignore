@@ -41,9 +41,10 @@ venv.bak/
 .DS_Store
 
 # Environment variables
-.envינ
+.env
 .env.local
 .env.*.local
+*.env
 
 # Testing
 .pytest_cache/
